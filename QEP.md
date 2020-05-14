@@ -2,9 +2,9 @@
 
 <table>
     <tr><th>date</th><td> 2020-05-24</td></tr>
-    <tr><th>author</th><td>[Sebastian M. Ernst](http://www.pleiszenburg.de/?qep) / [@s-m-e](https://github.com/s-m-e)</td></tr>
+    <tr><th>author</th><td><a href="http://www.pleiszenburg.de/?qep">Sebastian M. Ernst</a> (<a href="https://github.com/s-m-e">@s-m-e</a>)</td></tr>
     <tr><th>contact</th><td>ernst@pleiszenburg.de</td></tr>
-    <tr><th>maintainer</th><td>[@s-m-e](https://github.com/s-m-e)</td></tr>
+    <tr><th>maintainer</th><td><a href="https://github.com/s-m-e">@s-m-e</a></td></tr>
     <tr><th>version</th><td>QGIS 3.X</td></tr> <!-- TODO -->
 </table>
 
