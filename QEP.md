@@ -1,7 +1,9 @@
 # QGIS Enhancement: Title
 
-| --- | --- | --- |
-| **Date** | 2020-05-24 |
+<table>
+<tr><th> Date </th><td> 2020-05-24 </td></tr>
+</table>
+
 | **Author** | Sebastian M. Ernst (@s-m-e) |
 | **Contact** | ernst@pleiszenburg.de |
 | **maintainer** | @s-m-e |
