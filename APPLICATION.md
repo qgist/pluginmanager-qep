@@ -3,6 +3,8 @@ http://blog.qgis.org/2020/04/26/qgis-grants-5-call-for-grant-proposals-2020/
 https://forms.gle/SpyyEStwqtorzB4D9
 -->
 
+# Application form (checklist)
+
 - [x] Your name: Sebastian M. Ernst
 - [x] Your email: ernst@pleiszenburg.de
 - [ ] Grant request in Euros: * <!-- between 1 Euro and 10,000 Euros -->
