@@ -1,13 +1,12 @@
 # QGIS Enhancement: Title
 
 <table>
-<tr><th> Date </th><td> 2020-05-24 </td></tr>
+    <tr><th>date</th><td> 2020-05-24</td></tr>
+    <tr><th>author</th><td>[Sebastian M. Ernst](http://www.pleiszenburg.de/?qep) ([@s-m-e](https://github.com/s-m-e))</td></tr>
+    <tr><th>contact</th><td>ernst@pleiszenburg.de</td></tr>
+    <tr><th>maintainer</th><td>[@s-m-e](https://github.com/s-m-e)</td></tr>
+    <tr><th>version</th><td>QGIS 3.X</td></tr> <!-- TODO -->
 </table>
-
-| **Author** | Sebastian M. Ernst (@s-m-e) |
-| **Contact** | ernst@pleiszenburg.de |
-| **maintainer** | @s-m-e |
-| **Version** | QGIS 3.X |
 
 # Summary
 
