@@ -1,4 +1,4 @@
-# QGIS Enhancement: Title
+# QGIS Enhancement Proposal: **Turning Plugin Management into Actual Package Management**
 
 <table>
     <tr><th>date</th><td> 2020-05-24</td></tr>
