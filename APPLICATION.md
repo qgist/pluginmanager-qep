@@ -13,5 +13,14 @@ https://forms.gle/SpyyEStwqtorzB4D9
 - [ ] Short abstract here: * <!-- The detailed description of what it is you would like to work on should be provided in the QEP -->
 - [ ] QEP link: *
 - [ ] History: * <!-- Tell us a little about what work has already been done related to your grant proposal. Are you starting from scratch or are do you plan to build on the work of others? -->
+    - Explored options by developing a demo plugin - see Github repo
+    - Explored, debugged and documented relevant sections of QGIS source code (as documented in QEP)
+    - Got in touch with developers through mailing list, exploring design issues and asking questions for deeper understanding of the subject matter
 - [ ] How are you qualified to do this: * <!-- Tell us about previous work you have done that will demonstrate that you have the needed skills and enthusiasm to complete this task. -->
+    - Build QGIS from scratch, successfully applied changes
+    - Developed QGIS plugins (some open source, some proprietary)
+    - Intensely studied QGIS code base (as documented in QEP)
+    - 15 years of Python experience, for the past 6 years of a daily & professional basis
+    - developer of established open source Python packages
+    - 7 years of experience in using Qt
 - [ ] Implementation schedule / plan: * <!-- Lay out for us what will be done when. Please try to tie your work plan to the QGIS release schedule and other key activities in the QGIS project. -->
