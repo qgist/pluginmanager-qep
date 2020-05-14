@@ -16,11 +16,11 @@
 
 QGIS offers the possibility implement plugins, both in C++ and in Python. While it is complicated to implement and even harder to distribute C++ plugins, it is relatively easy to implement and distribute Python plugins. QGIS' Python APIs offer access to almost all relevant QGIS features. Therefore, QGIS extensibility through Python can be considered one of its greatest strengths.
 
-As of May 2020, [Python is the third-most popular programming language](https://www.tiobe.com/tiobe-index/) in active use only outperformed by C and Java. In this context, Python is currently seeing a massive increase in adoption across many types of different applications and disciplines - in a lot of cases driving users and developers away from established domain-specific proprietary solutions and into open source. It is safe to say that Python did something that only very few open source projects and virtually no programming language on its own managed to do: It has diverted significant amounts of funding into the open source ecosystem. The Python package ecosystem reflects that.
+As of May 2020, [Python is the third-most popular programming language](https://www.tiobe.com/tiobe-index/) in active use only outperformed by C and Java. In this context, Python is currently seeing a massive increase in adoption across many different types of applications and disciplines - in a lot of cases driving users and developers away from established domain-specific proprietary solutions and into open source. It is safe to say that Python did something that only very few open source projects and virtually no programming language on its own managed to do: It has diverted significant amounts of funding into the open source ecosystem. The Python package ecosystem reflects that.
 
 Distributing Python packages currently is a non-trivial problem, unfortunately.
 
-# Proposed Solution <!-- MUST -->
+# Proposed, Preferred Solution <!-- MUST -->
 
 <!-- TODO -->
 
@@ -28,13 +28,36 @@ Distributing Python packages currently is a non-trivial problem, unfortunately.
 
 <!-- TODO -->
 
-## Implementation details
+## Design Constraints
+
+<!-- Limit to certain younger versions of Python, e.g. 3.6 -->
+<!-- Maintain ability to build QGIS without Python -->
+<!-- Maintain full backwards compatibility for plugins and APIs -->
+<!-- New features should co-exist with old features -->
+<!-- Old QGIS distribution methods should not break -->
+<!-- Python first, C++ second - reduce interface code on both sides, less complex stacks -->
+
+## Implementation Details
+
+<!-- TODO -->
+
+## Affected APIs
 
 <!-- TODO -->
 
 ## Affected Files <!-- MUST -->
 
 <!-- TODO -->
+
+# Alternative, Unfavorable Solutions
+
+<!-- TODO -->
+
+<!-- (a) entirely move to new package format: breaks backwards compatibility -->
+<!-- (b) implement own package manager: rather complicated, already solved by pip and conda -->
+<!-- (c) dump old plugin manager in favor of either pip or conda: breaks backwards compatibility for existing plugins -->
+<!-- (d) stay on current solution: no-go -->
+<!-- (e) instead of re-write, refactor / cleanup of current solution: code is just too bad in terms of quality and complexity -->
 
 # Performance Implications <!-- MUST -->
 
@@ -51,6 +74,7 @@ Distributing Python packages currently is a non-trivial problem, unfortunately.
 # Backwards Compatibility <!-- MUST -->
 
 <!-- TODO -->
+<!-- Short and simple: Full backwards compatibility for plugins themselves and API -->
 
 # References
 
