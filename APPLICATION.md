@@ -23,4 +23,5 @@ https://forms.gle/SpyyEStwqtorzB4D9
     - 15 years of Python experience, for the past 6 years of a daily & professional basis
     - developer of established open source Python packages
     - 7 years of experience in using Qt
+    - While I am confident that I can handle the proposed C++ cleanups myself, I would be happy to collaborate with an experienced QGIS C++ developer in this particular matter.
 - [ ] Implementation schedule / plan: * <!-- Lay out for us what will be done when. Please try to tie your work plan to the QGIS release schedule and other key activities in the QGIS project. -->
