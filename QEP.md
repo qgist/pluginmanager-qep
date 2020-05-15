@@ -65,6 +65,10 @@ From a technical perspective, both should be possible. It is not possible becaus
 
 The latter is leading to all sorts of problems and bizarr workarounds. A nice summary can be find in [this questions](https://gis.stackexchange.com/q/196002/13332) and its answers on stackexchange.
 
+## Currently Unsupported Use-Cases
+
+...
+
 # Proposed, Preferred Solution <!-- MUST -->
 
 <!-- TODO -->
