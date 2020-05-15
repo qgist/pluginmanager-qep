@@ -133,11 +133,21 @@ Fallback C++ GIU - rest goes Python ...
 
 ## Affected APIs
 
-<!-- TODO -->
+**From a user's perspective, no QGIS API will change.** From a QGIS developer's perspective, there will be internal changes. This section lists those internal changes.
+
+In terms of Python, the following APIs will be changed:
+
+- `qgis.pyplugin_installer`: This module will be removed (an substituted) entirely. It was very likely never meant to be a public API, so this is not expected to cause any disruption.
+
+In terms of C++, the following classes will be changed:
+
+- `QgsPluginRegistry`: Simplification and cleanup
+- `QgsPythonUtilsImpl`: Simplification and cleanup
+- `QgsPluginManager`, `QgsAppPluginManagerInterface` and closely related classes: Massive removal of code and functionality.
 
 ## Affected Files <!-- MUST -->
 
-Relative to the root of QGIS 3.12 code base:
+Relative to the root of the QGIS 3.12 code base:
 
 - `/python/utils.py`: Although some plugins are using APIs from this module, [it is unclear which methods are meant to be stable API](https://lists.osgeo.org/pipermail/qgis-developer/2020-April/061056.html) and which methods and properties are internal. While its APIs will therefore be kept completely compatible, about 90% of its code will be rewritten.
 - `/python/pyplugin_installer/*.py`: While from a user's perspective the UI will be kept unchanged, this this code will be rewritten entirely. Because this is not a public API, compatibility is not a concern here.
@@ -147,8 +157,6 @@ Relative to the root of QGIS 3.12 code base:
 - `/src/app/qgspluginregistry.*`: These files offer mostly redundant features which can be cleaned up. At the end, they should only manage C++ plugins. Its class should be exposed to the C++ fallback UI and the new Python plugin manager.
 - `/src/python/qgspythonutilsimpl.cpp`: This file offers a C++ layer into `/python/utils.py`. Most of this code can be removed, basically only leaving the Python thread initialization and termination.
 - `/tests/src/app/testqgisapppython.cpp`: Tests of obsolete C++ code can be removed.
-
-<!-- TODO -->
 
 ## Recommended changes to related projects
 
