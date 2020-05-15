@@ -99,20 +99,22 @@ There are actually examples in the wild of people doing similar things with QGIS
 
 # Proposed, Preferred Solution <!-- MUST -->
 
-The QGIS plugin manager should be *extended*, allowing it to interact with both conda and pip.
+The QGIS plugin manager should be *extended*, allowing it to interact with both conda and pip. QGIS plugins should allowed to be distributed in (a) the existing, unchanged "legacy" QGIS plugin package format, (b) as conda packages and (c) pip-installable wheels and source distributions. QGIS on its own should not be a package manager except for "legacy" QGIS plugin packages. QGIS should merely interact with existing infrastructure.
 
 ## Fundamental Design Constraints
 
-QGIS currently compiles with Python 3. However, [a minimum minor versions appears to be unspecified](https://lists.osgeo.org/pipermail/qgis-developer/2020-March/060495.html). The Python ecosystem currently supports [Python 3.5](https://www.python.org/dev/peps/pep-0478/) and greater with [Python 3.5 reaching End of Life on 2020-09-13](https://devguide.python.org/#status-of-python-branches).
-<!-- Limit to certain younger versions of Python, e.g. 3.6 -->
-<!-- Maintain ability to build QGIS without Python -->
+The Python integration into QGIS has been controversial. To this date, QGIS can be built without Python i.e. the Python integration is optional. This work will *not* change this status-quo.
 
-<!-- Maintain full backwards compatibility for plugins and APIs -->
-None of the technical limitations and faults which are motivating this proposal are the plugin authors' faults. Changing APIs and/or package formats will always cause significant and undesirable disruptions. Understandably, not all plugin authors will adapt them within a reasonable time-frame - or adapt them at all. The Mozilla Foundation's changes to both Firefox and Thunderbird APIs are good examples of how this can go terribly wrong. In the context of this proposal, **full backwards compatibility must be maintained.** This applies to both the "legacy" QGIS Python package format as well as every touched QGIS Python API.
+QGIS currently compiles with Python 3. However, [a minimum minor versions appears to be unspecified](https://lists.osgeo.org/pipermail/qgis-developer/2020-March/060495.html). The Python ecosystem currently supports [Python 3.5](https://www.python.org/dev/peps/pep-0478/) and greater with [Python 3.5 reaching End of Life on 2020-09-13](https://devguide.python.org/#status-of-python-branches). It is therefore planned to make this work require at least [Python 3.6](https://docs.python.org/3/whatsnew/3.6.html). This particular version introduced [literal string interpolation](https://www.python.org/dev/peps/pep-0498/) and [type hints](https://www.python.org/dev/peps/pep-0484/), among other features. The use of type hints would enable the use of static code analysis tools such as [mypy](http://mypy-lang.org/) within the QGIS code base and could, as a "side effect", greatly increase the overall code quality. Given the scale of the proposed work and the intention of keeping things maintainable, it is planned exploit type hints in this work.
 
-<!-- New features should co-exist with old features -->
-<!-- Old QGIS distribution methods should not break -->
-<!-- Python first, C++ second - reduce interface code on both sides, less complex stacks -->
+None of the technical limitations and shortcomings which are motivating this proposal are the plugin authors' faults. Changing APIs and/or package formats will always cause significant and undesirable disruptions. Understandably, not all plugin authors will adapt them within a reasonable time-frame - or adapt them at all. The Mozilla Foundation's changes to both Firefox and Thunderbird APIs are good examples of how this can go terribly wrong and destroy thriving plugin ecosystems. In the context of this proposal, **full backwards compatibility must be maintained.** This applies to both the "legacy" QGIS Python plugin "package" format as well as every touched QGIS Python API. If QGIS interacts with conda and pip, this must work side-by-side with QGIS Python plugin "packages". New plugin management features must coexist with existing plugin management features and must not break any of them.
+
+Established methods of distributing QGIS must not break, i.e. the well-known OSGeo4W installer should work and behave as before. It is suggested to establish an alternative installer for Windows (maybe also for other platforms) as a consequence of this work in a subsequent project. <!-- TODO -->
+
+The plugin manager manages Python code. It naturally heavily interacts with Python libraries and the Python interpreter for taks like introspection and error handling. It is therefore proposed to implement this project in almost pure Python. As a side effect, this would limit the interface to C++ code, which would in return limit the overall complexity of this work considerably. Stacks of function calls from C++ into Python and then back into C++ or vice versa (like in QGIS' current plugin manager code base) will be banned.
+
+
+
 <!-- pip does not have an official API -->
 <!-- conda has sort of an API ... -->
 <!-- reinventing the wheel is a bad idea - QGIS should build on existing package managers -->
@@ -121,6 +123,8 @@ None of the technical limitations and faults which are motivating this proposal 
 ## Implementation Details
 
 Focus on Python ... little C++. If QGIS is build without Python support, everything described in this proposal is irrelevant anyway.
+
+Following a detailed analysis all relevant parts of the QGIS code base, ..... (quality)
 
 <!-- TODO -->
 
