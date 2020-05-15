@@ -83,7 +83,7 @@ In addition, there is one last critical missing link:
 
 So far, the QGIS community treats QGIS Python plugins as a "scripting extension" of QGIS, which is falling far behind of its actual potential. In many cases, Python serves as a "glue language" between different types of applications and libraries. QGIS should not be an exception here. A proper "connection" to Python packages and allowing non-Python components in them would enable the following currently highly desired use-cases, among others:
 
-- Accelerating Python code through [transpiling](https://en.wikipedia.org/wiki/Source-to-source_compiler) it to C: [Cython](https://documen.tician.de/pycuda/)
+- Accelerating Python code through [transpiling](https://en.wikipedia.org/wiki/Source-to-source_compiler) it to C: [Cython](https://cython.readthedocs.io/en/latest/)
 - Inclusion of C code: [C extensions](https://docs.python.org/3/extending/extending.html)
 - Inclusion of C++ code: [swig](http://www.swig.org/), [sip](https://www.riverbankcomputing.com/software/sip) or [plain C++ Python extensions](https://docs.python.org/3/extending/extending.html)
 - Access to Fortran libraries: [f2py](https://numpy.org/doc/stable/f2py/index.html)
