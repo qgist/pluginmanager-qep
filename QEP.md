@@ -99,7 +99,7 @@ There are actually examples in the wild of people doing similar things with QGIS
 
 # Proposed, Preferred Solution <!-- MUST -->
 
-The QGIS plugin manager should be *extended*, allowing it to interact with both conda and pip. QGIS plugins should allowed to be distributed in (a) the existing, unchanged "legacy" QGIS plugin package format, (b) as conda packages and (c) pip-installable wheels and source distributions. QGIS on its own should not be a package manager except for "legacy" QGIS plugin packages. QGIS should merely interact with existing infrastructure.
+The QGIS plugin manager should be *extended*, allowing it to interact with both conda and pip. QGIS plugins should allowed to be distributed in (a) the existing, unchanged "legacy" QGIS plugin package format, (b) as conda packages and (c) pip-installable wheels and source distributions. QGIS on its own should not be a package manager except for "legacy" QGIS plugin packages. It simply is not within the scope of the QGIS project. QGIS should merely interact with existing infrastructure.
 
 ## Fundamental Design Constraints
 
@@ -113,12 +113,13 @@ Established methods of distributing QGIS must not break, i.e. the well-known OSG
 
 The plugin manager manages Python code. It naturally heavily interacts with Python libraries and the Python interpreter for taks like introspection and error handling. It is therefore proposed to implement this project in almost pure Python. As a side effect, this would limit the interface to C++ code, which would in return limit the overall complexity of this work considerably. Stacks of function calls from C++ into Python and then back into C++ or vice versa (like in QGIS' current plugin manager code base) will be banned.
 
+pip does not have an official API, see [its user guidelines](https://pip.pypa.io/en/latest/user_guide/#using-pip-from-your-program) and [the unofficial API project](https://github.com/di/pip-api). Avoiding the unofficial API, the best option is to run pip as a [sub-process](https://docs.python.org/3/library/subprocess.html). While this approach is not unheard of, it is risky by definition and requires high code quality and thoughtful error handling. pip offers machine-readable output in most critical places.
 
+In contrast, [conda does have an official API](https://docs.conda.io/projects/conda/en/latest/api/). Unfortunately, it does not expose every relevant feature of the command line tool. The documentation is mostly outdated and, as it appears, incomplete. Similar to pip, the best approach is to run the command line tool through a sub-process. conda offers machine-readable output in all critical places.
 
-<!-- pip does not have an official API -->
-<!-- conda has sort of an API ... -->
-<!-- reinventing the wheel is a bad idea - QGIS should build on existing package managers -->
-<!-- the solution must be easier to maintain and extend than the current approach -->
+While pip and conda are the most widely used Python package managers today, they are not the only ones. It is also fairly easy to imagine that new projects in this field are going to emerge given the scale of the Python ecosystem. Any implementation within QGIS should therefore be modular. If pip or conda or both become irrelevant, it should be easy to deactivate and/or drop the corresponding code. If a new package manager becomes relevant, it should be easy to add support for it. After all, Package management should not be QGIS' responsibility. Python package management is a complicated problem of its own. QGIS should merely provide a thin layer on top of third-party solutions.
+
+Any future plugin manager code should be significantly easier to maintain and extend than the current code.
 
 ## Implementation Details
 
