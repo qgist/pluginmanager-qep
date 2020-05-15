@@ -160,10 +160,11 @@ Relative to the root of the QGIS 3.12 code base:
 
 ## Recommended changes to related projects
 
-(Not required ...)
+The proposed work would greatly benefit from the following changes in projects related to QGIS (while strictly speaking not requiring them):
 
-- expose plugin dependencies in `plugins.xml`
-- expose plugin ZIP-file hash sum in `plugins.xml`
+- [QGIS-Django](https://github.com/qgis/QGIS-Django), which offers `plugins.xml`, should add two new fields to it: `plugin_dependencies` and a hash sum for plugin ZIP-files.
+
+Currently, both QGIS and QGIS-Django handle plugin metadata but maintain separate and slightly different code for parsing, analyzing and validating plugin metadata files. As part of the proposed work, it is suggested to make both projects use a common code basis for this purpose.
 
 ## Example(s) <!-- MUST -->
 
