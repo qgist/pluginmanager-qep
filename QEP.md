@@ -147,6 +147,13 @@ Relative to the root of QGIS' code base (as of 3.12):
 
 <!-- TODO -->
 
+## Recommended changes to related projects
+
+(Not required ...)
+
+- expose plugin dependencies in `plugins.xml`
+- expose plugin ZIP-file hash sum in `plugins.xml`
+
 ## Example(s) <!-- MUST -->
 
 <!-- TODO -->
