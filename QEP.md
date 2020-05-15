@@ -127,6 +127,8 @@ Focus on Python ... little C++. If QGIS is build without Python support, everyth
 
 Following a detailed analysis all relevant parts of the QGIS code base, ..... (quality)
 
+Fallback C++ GIU - rest goes Python ...
+
 <!-- TODO -->
 
 ## Affected APIs
@@ -134,6 +136,14 @@ Following a detailed analysis all relevant parts of the QGIS code base, ..... (q
 <!-- TODO -->
 
 ## Affected Files <!-- MUST -->
+
+Relative to the root of QGIS' code base (as of 3.12):
+
+- `/python/utils.py`: Although some plugins are using APIs from this module, [it is unclear which methods are meant to be stable API](https://lists.osgeo.org/pipermail/qgis-developer/2020-April/061056.html) and which methods and properties are internal. While its APIs will therefore be kept completely compatible, about 90% of its code will be rewritten.
+- `/python/pyplugin_installer/*.py`: While the layout of the UI will be maintained, this this code will be rewritten entirely. Because this is not a public API, compatibility is not a concern here.
+- `/src/app/qgspluginregistry.cpp`: This file offers mostly redundant features which can be cleaned up. At the end, this file should only manage C++ plugins. Its class should be exposed to the C++ fallback UI and the new Python plugin manager.
+- `/src/python/qgspythonutilsimpl.cpp`: This file offers a C++ layer into `/python/utils.py`. Most of this code can be removed, basically only leaving the Python thread initialization and destruction.
+- `/tests/src/app/testqgisapppython.cpp`: Tests of obsolete C++ code can be removed.
 
 <!-- TODO -->
 
