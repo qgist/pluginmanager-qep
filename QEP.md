@@ -28,7 +28,9 @@ The most widely used distribution channel for Python packages happens to be the 
 
 All of the described problems - from complicated to use setuptools to the lack of pre-build wheels for Windows - let to the advent of [Python distributions](https://wiki.python.org/moin/PythonDistributions). Very similar to Linux distributions, Python distributions bundle pre-build Python packages usually together with relevant toolchains and their own package managers. As of May 2020, [Anaconda](https://anaconda.org/) is probably the most widely used Python distribution. Its package manager is named [conda](https://github.com/conda/conda). As of May 2020, Anaconda is the best if not the only option of installing a lot of relevant scientific Python packages on Windows, but it is also offered for Linux and OS X. Compared to pip, conda can manage not only Python packages but all sorts of other tools and dependencies, which makes it rather similar to [apt](https://en.wikipedia.org/wiki/APT_(software)), [yum](https://en.wikipedia.org/wiki/Yum_(software)) or [zypper](https://en.wikipedia.org/wiki/ZYpp). Ignoring features specific to Python, Anaconda is therefore very similar to a Linux distribution except for the fact that it ships an entire stack of tools and libraries all the way down to [libc](https://en.wikipedia.org/wiki/C_standard_library) but no operating system kernel. While Anaconda is technically both a company and a commercial product, the package manager itself, the package format specification and the package repository specification are open source. The [conda-forge project](https://conda-forge.org/) is probably the most widely known pure open source non-profit user of those specifications and offers independent, Anaconda-compatible [packages](https://anaconda.org/conda-forge) and a [distribution installer](https://github.com/conda-forge/miniforge). Independently of conda-forge, the conda package manager itself has for instance also been [re-implemented](https://github.com/QuantStack/mamba) based on its specification. The conda package specification is better documented than setuptools / wheels and, while being somewhat easier to use, offers a much higher degree of flexibility.
 
-QGIS itself has a really interesting position within this ecosystem. The relationship is complicated. Its massive Python API technically makes it a Python module. With sufficient background knowledge, QGIS can therefore be used in combination with virtually every other Python package in existence. The problem here is the mentioned, required background knowledge. [QGIS has in fact been packaged as a conda-forge Python package](https://github.com/conda-forge/qgis-feedstock/), which technically makes it a Python packages under certain circumstances. Besides, QGIS' Python plugins are technically also [Python modules](https://docs.python.org/3/tutorial/modules.html). Because they are lacking any form of installation scripts or binary distribution formats such as wheel, they are no real Python packages. They can not (safely & reliably) contain binary components or simply components written in any language other than Python. However, QGIS plugins contain meta data in a special format, [metadata.txt](https://docs.qgis.org/3.10/en/docs/pyqgis_developer_cookbook/plugins/plugins.html#plugin-metadata), which makes them some sort of a special, feature-limited package format. QGIS plugin "packages" can not explicitly specify dependencies to other Python packages or non-Python tools or libraries. Strangely, QGIS (for Windows) is shipped in a bundle with a Python interpreter and a small selection of Python packages, which technically makes it a very limited Python distribution lacking any kind of reasonable package management. Also strangely, QGIS plugins have a very limited ability to depend on other QGIS plugins ("cross-plugin dependencies" or "inter-plugin dependencies") - a feature which was added to QGIS 3.8 (see [QEP #132](https://github.com/qgis/QGIS-Enhancement-Proposals/issues/132) and [PR #9619](https://github.com/qgis/QGIS/pull/9619)) - which technically makes QGIS itself sort of a package manager.
+## How does QGIS fit into the bigger picture?
+
+QGIS itself has a really interesting position within this ecosystem. The relationship is complicated. Its massive Python API technically makes it a Python module. With sufficient background knowledge, QGIS can therefore be used in combination with virtually every other Python package in existence. The problem here is the mentioned, required background knowledge. [QGIS has in fact been packaged as a conda-forge Python package](https://github.com/conda-forge/qgis-feedstock/), which technically makes it a Python packages. Besides, QGIS' Python plugins are technically also [Python modules](https://docs.python.org/3/tutorial/modules.html). Because they are lacking any form of installation scripts or binary distribution formats such as wheel, they are no real Python packages. They can not (safely & reliably at least) contain binary components or simply components written in any language other than Python. However, QGIS plugins contain meta data in a special format, [metadata.txt](https://docs.qgis.org/3.10/en/docs/pyqgis_developer_cookbook/plugins/plugins.html#plugin-metadata), which makes them some sort of a special, feature-limited package format. QGIS plugin "packages" can not explicitly specify dependencies to other Python packages or non-Python tools or libraries. Strangely, QGIS (for Windows) is shipped in a bundle with a Python interpreter and a small selection of Python packages, which technically makes it a very limited Python distribution lacking any kind of reasonable package management. Also strangely, QGIS plugins have a very limited ability to depend on other QGIS plugins ("cross-plugin dependencies" or "inter-plugin dependencies") - a feature which was added to QGIS 3.8 (see [QEP #132](https://github.com/qgis/QGIS-Enhancement-Proposals/issues/132) and [PR #9619](https://github.com/qgis/QGIS/pull/9619)) - which technically makes QGIS itself sort of a package manager with (limited) dependency resolution.
 
 ## Terminology
 
@@ -50,6 +52,19 @@ Summarizing the above, the following (at times confusing) terminology is relevan
 - yum: A Linux package manager
 - zypper: A Linux package manager
 
+## Missing Links
+
+Looking at the list of relevant terminology, certain missing links stick out:
+
+1. QGIS Python plugins can not depend on Python packages.
+2. Python packages can not depend on QGIS Python plugins.
+
+From a technical perspective, both should be possible. It is not possible because QGIS established its own Python plugin package format and acts as a (limited) package manager. But there is one more missing link:
+
+3. The QGIS / OSGeo4W Windows installer does not contain a Python package manager (while in fact containing Python packages).
+
+The latter is leading to all sorts of problems and bizarr workarounds. A nice summary can be find in [this questions](https://gis.stackexchange.com/q/196002/13332) and its answers on stackexchange.
+
 # Proposed, Preferred Solution <!-- MUST -->
 
 <!-- TODO -->
@@ -68,6 +83,8 @@ Summarizing the above, the following (at times confusing) terminology is relevan
 <!-- Python first, C++ second - reduce interface code on both sides, less complex stacks -->
 <!-- pip does not have an official API -->
 <!-- conda has sort of an API ... -->
+<!-- reinventing the wheel is a bad idea - QGIS should build on existing package managers -->
+<!-- the solution must be easier to maintain and extend than the current approach -->
 
 ## Implementation Details
 
@@ -90,6 +107,7 @@ Summarizing the above, the following (at times confusing) terminology is relevan
 <!-- (c) dump old plugin manager in favor of either pip or conda: breaks backwards compatibility for existing plugins -->
 <!-- (d) stay on current solution: no-go -->
 <!-- (e) instead of re-write, refactor / cleanup of current solution: code is just too bad in terms of quality and complexity -->
+<!-- (f) alternative plugin manager remains a plugin itself: does not allow to solve all edge cases with respect to plugin start and will be complicated to maintain in long-term -->
 
 # Performance Implications <!-- MUST -->
 
