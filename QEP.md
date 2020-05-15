@@ -95,7 +95,7 @@ Besides, at the higher end of computing, it has become a common practice to run 
 - [MPI for Python](https://mpi4py.readthedocs.io/en/stable/), a classic in this field - usually used in conjunction with C, C++ and Fortran extensions
 - [Dask](https://dask.org/), a rather young but well funded player in the field - noticeable, among other features, for scaling numpy-compatible arrays and pandas-compatible dataframes too large to fit into a single machine's memory across multiple machines' memory
 
-There are actually examples in the wild of people doing this with QGIS, e.g. [at the Joint Research Centre (JRC)](https://ec.europa.eu/eurostat/cros/system/files/dawos18_lecture.soille.jeodpp.pdf). Unfortunately, a deployment of this kind currently is prohibitively complicated for many smaller entities.
+There are actually examples in the wild of people doing similar things with QGIS, e.g. [at the Joint Research Centre (JRC)](https://ec.europa.eu/eurostat/cros/system/files/dawos18_lecture.soille.jeodpp.pdf). Unfortunately, a deployment of this kind is currently prohibitively complicated for many smaller entities.
 
 # Proposed, Preferred Solution <!-- MUST -->
 
