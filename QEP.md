@@ -77,7 +77,10 @@ The latter is leading to all sorts of problems and bizarr workarounds. A nice su
 
 <!-- Limit to certain younger versions of Python, e.g. 3.6 -->
 <!-- Maintain ability to build QGIS without Python -->
+
 <!-- Maintain full backwards compatibility for plugins and APIs -->
+None of the technical limitations and faults which are motivating this proposal are the plugin authors' faults. Changing APIs and/or package formats will always cause significant and undesirable disruptions. Understandably, not all plugin authors will adapt them within a reasonable time-frame - or adapt them at all. The Mozilla Foundation's changes to both Firefox and Thunderbird APIs are good examples of how this can go terribly wrong. In the context of this proposal, **full backwards compatibility must be maintained.** This applies to both the "legacy" QGIS Python package format as well as every touched QGIS Python API.
+
 <!-- New features should co-exist with old features -->
 <!-- Old QGIS distribution methods should not break -->
 <!-- Python first, C++ second - reduce interface code on both sides, less complex stacks -->
@@ -123,8 +126,7 @@ The latter is leading to all sorts of problems and bizarr workarounds. A nice su
 
 # Backwards Compatibility <!-- MUST -->
 
-<!-- TODO -->
-<!-- Short and simple: Full backwards compatibility for plugins themselves and API -->
+**Fully backwards compatibility will be maintained.**
 
 # References
 
