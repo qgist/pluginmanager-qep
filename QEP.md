@@ -87,7 +87,7 @@ So far, the QGIS community treats QGIS Python plugins as a "scripting extension"
 - Inclusion of C code: [C extensions](https://docs.python.org/3/extending/extending.html)
 - Inclusion of C++ code: [swig](http://www.swig.org/), [sip](https://www.riverbankcomputing.com/software/sip) or [plain C++ Python extensions](https://docs.python.org/3/extending/extending.html)
 - Access to Fortran libraries: [f2py](https://numpy.org/doc/stable/f2py/index.html)
-- GPGPU: [cupy](https://cupy.chainer.org/), a CUDA-enabled numpy-drop-in-replacement, or [pycuda](https://documen.tician.de/pycuda/)
+- GPGPU: [cupy](https://cupy.chainer.org/), a CUDA-enabled numpy-drop-in-replacement, [PyCUDA](https://documen.tician.de/pycuda/) or [PyOpenCL](https://documen.tician.de/pyopencl/)
 - Machine Learning, for instance in the context of satellite image classification and vectorization: [tensorflow](https://www.tensorflow.org/), [pytorch](https://pytorch.org/), [scikit-learn](https://scikit-learn.org/) and others
 
 # Proposed, Preferred Solution <!-- MUST -->
