@@ -126,7 +126,7 @@ None of the technical limitations and faults which are motivating this proposal 
 
 # Backwards Compatibility <!-- MUST -->
 
-**Fully backwards compatibility will be maintained.**
+**Full backwards compatibility will be maintained.**
 
 # References
 
