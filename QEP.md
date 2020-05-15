@@ -52,7 +52,7 @@ Summarizing the above, the following (at times confusing) terminology is relevan
 - yum: A Linux package manager
 - zypper: A Linux package manager
 
-## Missing Links
+## Currently Missing Links
 
 Looking at the list of relevant terminology, certain missing links stick out:
 
@@ -75,9 +75,20 @@ If a plugin author wants to make a QGIS plugin depend on a Python package right 
     - Asking the users to install the desired Python package manually: Not many users can do it, even fewer are willing to do so. The process is not trivial as it usually requires to make pip work first.
     - Building some kind of Python package install functionality into the QGIS Python plugin: Similar to the last option just a lot more risky. Blowing up a user's QGIS installation in the process is a real risk here.
 
+In addition, there is one last critical missing link:
+
+4. If the desired Python package contains non-Python components and is not available as a wheel, making a QGIS plugin depend on it in any reliable and relatively easy to distribute form is virtually impossible at this point.
+
 ## Currently Unsupported Use-Cases
 
-...
+So far, the QGIS community treats QGIS Python plugins as a "scripting extension" of QGIS, which is falling far behind of its actual potential. In many cases, Python serves as a "glue language" between different types of applications and libraries. QGIS should not be an exception here. A proper "connection" to Python packages and allowing non-Python components in them would enable the following currently highly desired use-cases, among others:
+
+- Accelerating Python code through [transpiling](https://en.wikipedia.org/wiki/Source-to-source_compiler) it to C: [Cython](https://documen.tician.de/pycuda/)
+- Inclusion of C code: [C extensions](https://docs.python.org/3/extending/extending.html)
+- Inclusion of C++ code: [swig](http://www.swig.org/), [sip](https://www.riverbankcomputing.com/software/sip) or [plain C++ Python extensions](https://docs.python.org/3/extending/extending.html)
+- Access to Fortran libraries: [f2py](https://numpy.org/doc/stable/f2py/index.html)
+- GPGPU: [cupy](https://cupy.chainer.org/), a CUDA-enabled numpy-drop-in-replacement, or [pycuda](https://documen.tician.de/pycuda/)
+- Machine Learning, for instance in the context of satellite image classification and vectorization: [tensorflow](https://www.tensorflow.org/), [pytorch](https://pytorch.org/), [scikit-learn](https://scikit-learn.org/) and others
 
 # Proposed, Preferred Solution <!-- MUST -->
 
