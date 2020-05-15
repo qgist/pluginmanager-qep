@@ -137,12 +137,15 @@ Fallback C++ GIU - rest goes Python ...
 
 ## Affected Files <!-- MUST -->
 
-Relative to the root of QGIS' code base (as of 3.12):
+Relative to the root of QGIS 3.12 code base:
 
 - `/python/utils.py`: Although some plugins are using APIs from this module, [it is unclear which methods are meant to be stable API](https://lists.osgeo.org/pipermail/qgis-developer/2020-April/061056.html) and which methods and properties are internal. While its APIs will therefore be kept completely compatible, about 90% of its code will be rewritten.
-- `/python/pyplugin_installer/*.py`: While the layout of the UI will be maintained, this this code will be rewritten entirely. Because this is not a public API, compatibility is not a concern here.
-- `/src/app/qgspluginregistry.cpp`: This file offers mostly redundant features which can be cleaned up. At the end, this file should only manage C++ plugins. Its class should be exposed to the C++ fallback UI and the new Python plugin manager.
-- `/src/python/qgspythonutilsimpl.cpp`: This file offers a C++ layer into `/python/utils.py`. Most of this code can be removed, basically only leaving the Python thread initialization and destruction.
+- `/python/pyplugin_installer/*.py`: While from a user's perspective the UI will be kept unchanged, this this code will be rewritten entirely. Because this is not a public API, compatibility is not a concern here.
+- `/python/pyplugin_installer/*.ui`: Can remain largely untouched.
+- `/src/ui/qgspluginmanagerbase.ui`: Can be moved into the Python plugin manager tree.
+- `/src/app/pluginmanager/*.*`: Most of the current logic will be rewritten in Python and therefore dumped. What remains is a skeleton fall-back UI that allows to activate & deactivate C++ plugins if QGIS is built without Python.
+- `/src/app/qgspluginregistry.*`: These files offer mostly redundant features which can be cleaned up. At the end, they should only manage C++ plugins. Its class should be exposed to the C++ fallback UI and the new Python plugin manager.
+- `/src/python/qgspythonutilsimpl.cpp`: This file offers a C++ layer into `/python/utils.py`. Most of this code can be removed, basically only leaving the Python thread initialization and termination.
 - `/tests/src/app/testqgisapppython.cpp`: Tests of obsolete C++ code can be removed.
 
 <!-- TODO -->
