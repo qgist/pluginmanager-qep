@@ -99,14 +99,11 @@ There are actually examples in the wild of people doing this with QGIS, e.g. [at
 
 # Proposed, Preferred Solution <!-- MUST -->
 
-<!-- TODO -->
-
-## Example(s) <!-- MUST -->
-
-<!-- TODO -->
+The QGIS plugin manager should be *extended*, allowing it to interact with both conda and pip.
 
 ## Fundamental Design Constraints
 
+QGIS currently compiles with Python 3. However, [a minimum minor versions appears to be unspecified](https://lists.osgeo.org/pipermail/qgis-developer/2020-March/060495.html). The Python ecosystem currently supports [Python 3.5](https://www.python.org/dev/peps/pep-0478/) and greater with [Python 3.5 reaching End of Life on 2020-09-13](https://devguide.python.org/#status-of-python-branches).
 <!-- Limit to certain younger versions of Python, e.g. 3.6 -->
 <!-- Maintain ability to build QGIS without Python -->
 
@@ -123,6 +120,8 @@ None of the technical limitations and faults which are motivating this proposal 
 
 ## Implementation Details
 
+Focus on Python ... little C++. If QGIS is build without Python support, everything described in this proposal is irrelevant anyway.
+
 <!-- TODO -->
 
 ## Affected APIs
@@ -130,6 +129,10 @@ None of the technical limitations and faults which are motivating this proposal 
 <!-- TODO -->
 
 ## Affected Files <!-- MUST -->
+
+<!-- TODO -->
+
+## Example(s) <!-- MUST -->
 
 <!-- TODO -->
 
@@ -158,7 +161,11 @@ None of the technical limitations and faults which are motivating this proposal 
 
 # Backwards Compatibility <!-- MUST -->
 
-**Full backwards compatibility will be maintained.**
+**Full backwards compatibility for plugins will be maintained.**
+
+It is suggested that QGIS can, as a consequence of this proposal, not be built with Python 3.5 or prior (while building with Python can remain optional). This should not have any noticeable effect on backwards compatibility as breaking changes in the interpreter have become extremely rare and specific (usually minor changes to the standard library) after the Python 2 to 3 transition and its associated massive pain.
+
+It is suggested to scan the entire public QGIS plugin repository of actively maintained plugins compatible with QGIS 3 with automated tests for potential issues prior to a future QGIS release potentially containing the proposed changes.
 
 # References
 
