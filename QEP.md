@@ -286,9 +286,9 @@ The proposed work would greatly benefit from the following changes in projects r
 
 Currently, both QGIS and QGIS-Django handle plugin metadata but maintain separate and slightly different code for parsing, analyzing and validating plugin metadata files. As part of the proposed work, it is suggested to make both projects use a common code basis for this purpose.
 
-## Example(s) <!-- MUST -->
+## Example <!-- MUST -->
 
-<!-- TODO -->
+[A work-in-progress proof-of-concept implementation](https://github.com/qgist/pluginmanager).
 
 # Alternative, Unfavorable Solutions
 
