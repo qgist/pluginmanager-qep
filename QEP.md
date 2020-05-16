@@ -152,7 +152,7 @@ Tapping as deep into the Python interpreter as QGIS does is not without its risk
 
 ### Conclusion
 
-
+Technically, it is always a good idea to build on top of existing infrastructure and improve existing code. A decision to rewrite code (instead of attempting to refactor it) should never been taken lightly. However, given the described state of the code of the plugin manager, it is concluded that most of it is not salvageable. It should be re-designed and re-written from scratch.
 
 ## Fundamental Design Constraints for a Potential Solution
 
