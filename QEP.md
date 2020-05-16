@@ -225,7 +225,29 @@ Adding `conda` and `pip` support also raises the question of how QGIS finds and 
 
 ### Code Structure
 
-<!-- TODO -->
+This section proposes a rough structure for the `pluginmanager` module in the form of sub-modules.
+
+- `qgis_api`: Collects references to QGIS API in central location
+- `error`: Special Python exception types related to plugin management
+- `settings`: Additional, required infrastructure around `QgsSettings`. Because of [backwards compatibility](https://lists.osgeo.org/pipermail/qgis-developer/2020-April/060790.html), this is not as straight-forward as it should be.
+- `imports`: Isolation of the Python module import layer (i.e. the override of `builtins.__import__`) and therefore all code related to loading and unloading Python modules
+- `index`: Contains a single class, the `Index`. It is the highest level of abstraction for QGIS Python plugin management. A package index holds package repositories and individual plugins. It offers the index API, which is the layer through which the rest of QGIS and the GUI interacts with the package manager module.
+- `plugin`: Contains a single class, the `Plugin`. It represents a single plugin, installed or uninstalled, regardless of the backend. It collects references to all possible, available releases of this plugin.
+- `pluginrelease`: Contains a single class, the `PluginRelease`. A plugin release represents one specific version of a plugin from one specific backend. If two backends offer the same version of a plugin, those two options of getting this version of the plugin will be considered different releases.
+- `repository`: Contains a single class, `Repository`. A plugin repository represents all plugin releases offered by one specific package source from one specific package backend.
+- `backends`: Likely a folder with further sub-modules, one per backend. It contains code specific to individual backends.
+- `version`: Contains a single class, `Version`. Contains logic to parse, compare and export software versions. Very similar to [semver](https://github.com/python-semver/python-semver), but specific to QGIS' needs and fully backwards compatible to the old version comparison logic.
+- `metadata`: Contains a single class, `Metadata`. This class represents the metadata of a single plugin release. It allows to import metadata from different sources and formats, to export metadata to different formats and to compare metadata.
+- `metadatafield`: Contains a single class, `MetadataField`. It represents one single field of metadata and handles import/parsing, comparison and serialization of the data in this field.
+- `metadataspec`: Contains a list of dictionaries specifying the metadata format as well as required serialization and deserialization methods. Metadata fields derive their logic from this specification.
+- `abc`: Holds [abstract bases classes](https://docs.python.org/3/library/abc.html) for type checks, among other uses.
+- `core`: Initializes the package index, triggers the load and start procedures of plugins when QGIS is launched and takes care of launching the plugin manager GUI if a user requests it.
+- `gui`: Likely a folder with further sub-modules containing the plugin manager GUI. It should only contain GUI code and event handling and call the index API for all actions related to actual package management.
+- `cli`: Based on the proposed design, specifically the index API, a CLI-type alternative front-end becomes theoretically possible. This could be interesting for the QGIS Server. Its implementation is not part of this proposal, although the infrastructure will be prepared.
+
+It is suggested to isolated `metadata`, `metadatafield` and `metadataspec` into a separate, new Python package. Ideally, both QGIS and QGIS-Django could then use this package as a common code base for QGIS Python plugin metadata handling. Furthermore, relevant QGIS documentation could automatically be derived and updated from `metadataspec`.
+
+A work-in-progress proof-of-concept QGIS plugin manager *plugin*, which is already using the proposed structure, [can be found here](https://github.com/qgist/pluginmanager).
 
 ## Affected APIs
 
