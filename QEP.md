@@ -122,11 +122,15 @@ Underneath `/python/pyplugin_installer/`, the class `QgsPluginInstaller` from `i
 
 `/src/app/qgspluginregistry.cpp` offers a class named `QgsPluginRegistry` (used by `QgsPluginManager`) which is not exposed to Python at this point. `QgsPluginRegistry` makes heavy use of `mPythonUtils`, which is a C++ wrapper around `/python/utils.py` (through `/src/python/qgspythonutilsimpl.cpp`). `QgsPluginRegistry` offers two relevant methods: `loadCppPlugin` and `unloadCppPlugin`. It is the heart of QGIS' original, dated plugin system. At this point, it is partially responsible for loading Python plugins. It is exclusively responsible for loading C++ plugins.
 
-`/python/utils.py` can be understood as an exposed Python API (`qgis.utils`). It is called both by QGIS C++ and by plugins. Here, the `iface` and `serverIface` objects plus a lot of closely related infrastructure reside. Besides, this module is responsible for holding information and handles on loaded Python plugins, installed Python plugin inventory, Python plugin loading and unloading as well as Python plugin start and stop. Completely independently of plugins,
+`/python/utils.py` can be understood as an exposed Python API (`qgis.utils`). It is called both by QGIS C++ and by plugins. Here, the `iface` and `serverIface` objects plus a lot of closely related infrastructure reside. Besides, this module is responsible for holding information and handles on loaded Python plugins as well as installed Python plugin inventory. It furthermore loads, unloads, starts and stops Python plugins. Completely independently of plugins, it contains mechanisms for QGIS Python Macros. Most noticeable, the utils include an `_import` method, which is used to override `builtins.__import__`. Therefore, every import statement in Python within QGIS is running through the mentioned custom `_import` method. Via this mechanism, QGIS prohibits the import of PyQt4 and tracks the import of Python plugin modules, which in return is the foundation for the plugin unloading and reloading mechanism.
 
 `/tests/src/app/testqgisapppython.cpp` is used to test the C++ to Python infrastructure (i.e. calls into `qgis.utils`). `/tests/src/python/test_qgsserver_plugins.py` tests the QGIS server Python plugin infrastructure. `/tests/src/python/test_plugindependencies.py` looks at the current Python cross-plugin dependency mechanism. All other components, i.e. most of the code in `/python/pyplugin_installer/`, are largely untested.
 
 ### State of the Code
+
+
+
+### Conclusion
 
 
 
