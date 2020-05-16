@@ -103,12 +103,16 @@ The QGIS plugin manager should be *extended*, allowing it to interact with both 
 
 ## Terminology
 
-<!-- TODO -->
+With respect to plugins, QGIS can at the moment do the following things:
 
-- installation
-- deinstallation
-- loading
-- unloading
+- **install**: A ZIP-file containing a Python module and a `metadata.txt` file are unpacked into a new folder underneath the QGIS Python plugins folder. Other plugins (cross-plugin dependencies) may be installed in the process, too.
+- **uninstall**: A plugin's folder underneath the QGIS Python plugins folder is removed, i.e. deleted.
+- **load**: Loading a QGIS Python plugin is roughly equivalent to importing it as a Python module. Very little to no plugin code is executed at this stage.
+- **unload**: Unloading a plugin is a procedure that tries to remove a plugin from memory by deleting all references to it so it is left to [Python's garbage collector](https://docs.python.org/3/library/gc.html). Python does not intentionally allow this use-case, so QGIS' implementation can be considered a hack and is actually unreliable. The added benefit from this feature is the [ability to re-load a plugin at QGIS run time](https://plugins.qgis.org/plugins/plugin_reloader/), which greatly helps when developing new plugins.
+- **start**: Once a QGIS Python plugin is loaded, it has to be started. QGIS therefore calls the plugin's `classFactory` and/or `serverClassFactory` functions. Both of those objects return a "plugin object" with a certain API. Plugin objects originating from a `classFactory` may have an `initGui` method, which is subsequently called. A plugin object originating from `classFactory` may in addition have an `initProcessing` method, which may eventually be called from the `QgsProcessingExec` C++ infrastructure.
+- **stop**: Before it can be attempted to unload a QGIS Python plugin, it has to be "stopped" - i.e. the plugin must be given the opportunity to run cleanup code. Plugin objects must therefore expose an `unload` method which is called prior to unloading the plugin. Technically, *stoping* and *unloading* happen in the same place within the current code base, but they should - for the purpose of this discussion - really be understood as two separate, distinct steps. Plugin objects originating from `serverClassFactory` can expose an `unload` method, but it will not be called by QGIS.
+
+While there is no clear specification, most plugins expect to be truly unloaded (i.e. removed from memory) before they can be re-started.
 
 ## Analysis of Current Implementation
 
