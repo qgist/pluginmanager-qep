@@ -283,10 +283,6 @@ Currently, both QGIS and QGIS-Django handle plugin metadata but maintain separat
 - While loading QGIS: Likely some, but it is hard to tell whether the process becomes faster or slower. In any case, the change will not be significant. The overall cleanup should however allow some optimizations which the current plugin manager code does not allow in a clean manner.
 - A repository refresh is very likely going to require more time than before. Early test code suggests single digit seconds per repository per refresh. Because a refresh only happens if a user actually opens the plugin manager UI, it is safe to say that it will not have any negative impact on the overall user experience. The behavior is expected to similar to for instance running `apt update`.
 
-# Further Considerations/Improvements <!-- MUST -->
-
-<!-- TODO -->
-
 # Backwards Compatibility <!-- MUST -->
 
 **Full backwards compatibility for plugins will be maintained.**
