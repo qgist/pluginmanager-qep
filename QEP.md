@@ -292,7 +292,11 @@ Currently, both QGIS and QGIS-Django handle plugin metadata but maintain separat
 
 # Alternative, Unfavorable Solutions
 
-<!-- TODO -->
+As a part of this proposal, alternative approaches and solutions were explored. The following list contains a number of noteworthy candidates and the reasons why those are unfavorable or even impossible:
+
+1) aa
+1) bb
+1) cc
 
 <!-- (a) entirely move to new package format: breaks backwards compatibility -->
 <!-- (b) implement own package manager: rather complicated, already solved by pip and conda -->
