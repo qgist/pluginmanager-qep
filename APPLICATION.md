@@ -34,3 +34,4 @@ https://forms.gle/SpyyEStwqtorzB4D9
         - Implement tests for new plugin manager module. Required time: Roughly 1 to 2 full weeks.
         - Write documentation. Required time: Roughly 2 to 3 days.
     - Total allocated time for project: 5 weeks.
+    - I am planning to maintain this code long-term.
