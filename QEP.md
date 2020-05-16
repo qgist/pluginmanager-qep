@@ -186,11 +186,26 @@ Any future plugin manager code should be significantly easier to maintain and ex
 
 ## Implementation Details
 
-Focus on Python ... little C++. If QGIS is build without Python support, everything described in this proposal is irrelevant anyway.
+### Step 1: Fully backwards-compatible re-implementation of the plugin management system
 
-Following a detailed analysis all relevant parts of the QGIS code base, ..... (quality)
+This work focuses on the Python side of QGIS and Python plugins. If QGIS is build without Python support, everything described in this proposal is becoming irrelevant anyway. Because of this and the proposed intense interaction with Python code in QGIS Python plugins, it is proposed to carry out a clear majority of this work in Python. It is also intended to minimize any interaction between the C++ side and the Python side of QGIS, i.e. reducing complexity and eliminating problems associated with SIP. As a consequence, a lot of existing C++ code related to plugin management is becoming obsolete can can be removed. The following new structure is proposed instead:
 
-Fallback C++ GIU - rest goes Python ...
+- A new fallback plugin manager GUI written in C++. It allows to list, activate and deactivate C++ plugins - not more, not less. This GUI only becomes visible (and is only built) if QGIS is built without Python support. The fall-back GUI does not contain any reference to Python code whatsoever, i.e. no C++ code that is conditionally build if Python is present.
+- A new primary plugin manager GUI written entirely in Python that replaces the C++ fall-back GUI if QGIS is built with Python support. It also allows to list, activate and deactivate C++ plugins - based on the same API the fallback GUI will be using. Beyond that, the new primary GUI will allow the management of Python plugins and Python plugin repositories.
+
+Both, the new fallback GUI as well as the new primary plugin manager GUI should look and behave as before so users should not notice much of a difference (if any difference at all).
+
+The old `qgis.pyplugin_installer` module will be removed entirely and substituted with a new `qgis.pluginmanager` module. The latter will hold almost all of the plugin-related infrastructure. Most of the logic in `qgis.utils` will be replaced with thin wrappers around logic in the new `pluginmanager` module. `qgis.utils` will therefore remain API-compatible from a user's perspective but loose most of its current complexity and design issues. Plugin-related APIs in `qgis.utils` can optionally be marked as deprecated and their use can be discouraged in favor of a new, clean API in `qgis.pluginmanager`.
+
+In this first step, `qgis.pluginmanager` should offer all the features the current Python plugin mechanism has - plus a cleaner and more reliable dependency resolution, installation and loading mechanism. Only now, the plugin manager can be extended in a second step. [Most of the ground work and analysis for the first step](https://github.com/qgist/pluginmanager) has already been done and can be found on Github.
+
+Because backwards compatibility is a major concern, the first step will technically not change the behavior of QGIS with respect to Python plugins except for the dependency mechanism. As of now, only one plugin in the public QGIS plugin repository is using this feature at all, but definitely not in a meaningful way, so the expected problems are minimal.
+
+### Step 2: Adding support for Python package managers
+
+<!-- TODO -->
+
+### Code Structure
 
 <!-- TODO -->
 
@@ -257,6 +272,8 @@ Currently, both QGIS and QGIS-Django handle plugin metadata but maintain separat
 # Backwards Compatibility <!-- MUST -->
 
 **Full backwards compatibility for plugins will be maintained.**
+
+A minimal exception is made with respect to the current cross-plugin dependency mechanism. Due to its lack of proper specification and documentation as well as only a single plugin using it as of May 2020, no serious problems are to be expected. It is very likely that this plugin will continue to work without changes. In terms of proprietary plugins and their potential current use of cross-plugin dependencies, a survey might be conducted for better understanding the actual needs of their developers.
 
 It is suggested that QGIS can, as a consequence of this proposal, not be built with Python 3.5 or prior (while building with Python can remain optional). This should not have any noticeable effect on backwards compatibility as breaking changes in the interpreter have become extremely rare and specific (usually minor changes to the standard library) after the Python 2 to 3 transition and its associated massive pain.
 
