@@ -317,13 +317,6 @@ It is suggested that QGIS can, as a consequence of this proposal, not be built w
 
 It is suggested to scan the entire public QGIS plugin repository of actively maintained plugins compatible with QGIS 3 with automated tests for potential issues prior to a future QGIS release potentially containing the proposed changes.
 
-# References
-
-<!-- TODO -->
-
-<!-- mailing list discussions etc -->
-<!-- pull request on plugin dependencies and related QEP -->
-
 # Copyright
 
 This document has been placed in the public domain under the GPL, see [license](https://github.com/qgist/pluginmanager-qep/blob/master/LICENSE).
