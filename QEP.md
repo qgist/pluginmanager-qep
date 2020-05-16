@@ -101,11 +101,7 @@ There are actually examples in the wild of people doing similar things with QGIS
 
 The QGIS plugin manager should be *extended*, allowing it to interact with both conda and pip. QGIS plugins should allowed to be distributed in (a) the existing, unchanged "legacy" QGIS plugin package format, (b) as conda packages and (c) pip-installable wheels and source distributions. QGIS on its own should not be a package manager except for "legacy" QGIS plugin packages. It simply is not within the scope of the QGIS project. QGIS should merely interact with existing infrastructure.
 
-## Analysis of Current Implementation
-
-This section is based on the code base of QGIS 3.12.
-
-### Terminology
+## Terminology
 
 <!-- TODO -->
 
@@ -113,6 +109,10 @@ This section is based on the code base of QGIS 3.12.
 - deinstallation
 - loading
 - unloading
+
+## Analysis of Current Implementation
+
+This section is based on the code base of QGIS 3.12.
 
 ### Overview
 
