@@ -292,18 +292,15 @@ Currently, both QGIS and QGIS-Django handle plugin metadata but maintain separat
 
 # Alternative, Unfavorable Solutions
 
-As a part of this proposal, alternative approaches and solutions were explored. The following list contains a number of noteworthy candidates and the reasons why those are unfavorable or even impossible:
+As a part of this proposal, alternative approaches, (partial) solutions and different design considerations were explored. The following list contains a number of noteworthy candidates and the reasons why those are unfavorable or even impossible:
 
-1) aa
-1) bb
-1) cc
-
-<!-- (a) entirely move to new package format: breaks backwards compatibility -->
-<!-- (b) implement own package manager: rather complicated, already solved by pip and conda -->
-<!-- (c) dump old plugin manager in favor of either pip or conda: breaks backwards compatibility for existing plugins -->
-<!-- (d) stay on current solution: no-go -->
-<!-- (e) instead of re-write, refactor / cleanup of current solution: code is just too bad in terms of quality and complexity -->
-<!-- (f) alternative plugin manager remains a plugin itself: does not allow to solve all edge cases with respect to plugin start and will be complicated to maintain in long-term -->
+1) Staying at the current solution by not implementing the proposed work: See "Analysis of Current Implementation", "Currently Unsupported Use-Cases" and "Currently Missing Links" sections of this document.
+1) Refactoring the current implementation: See "Conclusion" sub-section within the "Analysis of Current Implementation" section of this document.
+1) Dropping support for the "legacy" QGIS Python plugin "package" format: It would simplify the proposed work significantly. However, breaking backwards compatibility at this scale has the potential to destroy the existing plugin ecosystem.
+1) Dumping the current plugin installer for good in favor of conda and/or pip: See previous point.
+1) Designing a new QGIS Python plugin package format format or significantly improving the existing "legacy" QGIS Python plugin "package" format - instead of relying on conda packages and pip-installable wheels: Extremely complicated and simply too far beyond the scope of the QGIS project. Large entities working on nothing but package management solutions are massively struggling with similar tasks.
+1) Implementing a real package manager as part of QGIS instead of relying on conda and pip: See previous point.
+1) This proposed work is implemented as a separat QGIS Python plugin: Partially possible, see [proof-of-concept](https://github.com/qgist/pluginmanager). The primary concern here is the fact a separate, external plugin manager would have to inject code into QGIS at run time which makes it hard to maintain and risky to operate. It also can not solve the described problems with respect to plugin dependencies and the plugin loading sequence because it would be a plugin itself at the mercy of the current implementation.
 
 # Performance Implications <!-- MUST -->
 
