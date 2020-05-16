@@ -101,7 +101,36 @@ There are actually examples in the wild of people doing similar things with QGIS
 
 The QGIS plugin manager should be *extended*, allowing it to interact with both conda and pip. QGIS plugins should allowed to be distributed in (a) the existing, unchanged "legacy" QGIS plugin package format, (b) as conda packages and (c) pip-installable wheels and source distributions. QGIS on its own should not be a package manager except for "legacy" QGIS plugin packages. It simply is not within the scope of the QGIS project. QGIS should merely interact with existing infrastructure.
 
-## Fundamental Design Constraints
+## Analysis of Current Implementation
+
+This section is based on the code base of QGIS 3.12.
+
+### Terminology
+
+<!-- TODO -->
+
+- installation
+- deinstallation
+- loading
+- unloading
+
+### Overview
+
+The current implementation is an interesting mix of C++ and Python code. Even the plugin management GUI itself is partially C++ (the main window, `QgsPluginManager[Interface]`, and part of its logic) and partially Python (all further dialogs and their logic).
+
+Underneath `/python/pyplugin_installer/`, the class `QgsPluginInstaller` from `installer.py` is a Python API that is called from the C++-interface (`QgsPluginManagerInterface`) through `QgsPythonRunner`. Most of the relevant C++ is located underneath `/src/app/pluginmanager/` (with a single ui-file elsewhere, `/src/ui/qgspluginmanagerbase.ui`). The code in `/python/pyplugin_installer/` handles plugin fetching, installation and removal, metadata processing, repositories and dependencies.
+
+`/src/app/qgspluginregistry.cpp` offers a class named `QgsPluginRegistry` (used by `QgsPluginManager`) which is not exposed to Python at this point. `QgsPluginRegistry` makes heavy use of `mPythonUtils`, which is a C++ wrapper around `/python/utils.py` (through `/src/python/qgspythonutilsimpl.cpp`). `QgsPluginRegistry` offers two relevant methods: `loadCppPlugin` and `unloadCppPlugin`. It is the heart of QGIS' original, dated plugin system. At this point, it is partially responsible for loading Python plugins. It is exclusively responsible for loading C++ plugins.
+
+`/python/utils.py` can be understood as an exposed Python API (`qgis.utils`). It is called both by QGIS C++ and by plugins. Here, the `iface` and `serverIface` objects plus a lot of closely related infrastructure reside. Besides, this module is responsible for holding information and handles on loaded Python plugins, installed Python plugin inventory, Python plugin loading and unloading as well as Python plugin start and stop. Completely independently of plugins,
+
+`/tests/src/app/testqgisapppython.cpp` is used to test the C++ to Python infrastructure (i.e. calls into `qgis.utils`). `/tests/src/python/test_qgsserver_plugins.py` tests the QGIS server Python plugin infrastructure. `/tests/src/python/test_plugindependencies.py` looks at the current Python cross-plugin dependency mechanism. All other components, i.e. most of the code in `/python/pyplugin_installer/`, are largely untested.
+
+### State of the Code
+
+
+
+## Fundamental Design Constraints for a Potential Solution
 
 The Python integration into QGIS has been controversial. To this date, QGIS can be built without Python i.e. the Python integration is optional. This work will *not* change this status-quo.
 
