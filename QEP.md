@@ -223,6 +223,8 @@ QGIS already supports package repositories. The concept will simply be extended 
 
 Adding `conda` and `pip` support also raises the question of how QGIS finds and loads plugins. While both Python package managers can install Python packages into custom locations, it does not make sense even in the case of QGIS. `conda` and `pip` should therefore install all Packages into their default locations. QGIS will instead go through all paths in Python's `sys.path` and try to locate folders containing both an `__init__.py` file and a `metadata.txt` file. Those Python modules will then be considered QGIS Python plugins. There is no need for QGIS to interfere with `conda`'s and `pip`'s default configuration.
 
+Because QGIS still allows C++ plugins, they will be collected into a special C++ plugin backend. For consistency, this backend will be exposed to a user as a single, protected plugin repository. The user will not be able to add or remove C++ repositories. The C++ backend naturally can not install or remove C++ plugins, but it should be able to activate and deactivate C++ plugins by interacting with `QgsPluginRegistry` on the C++ side of QGIS. `QgsPluginRegistry` therefore must become part of QGIS' Python API.
+
 ### Code Structure
 
 This section proposes a rough structure for the `pluginmanager` module in the form of sub-modules.
@@ -255,7 +257,7 @@ A work-in-progress proof-of-concept QGIS plugin manager *plugin*, which is alrea
 
 In terms of Python, the following APIs will be changed:
 
-- `qgis.pyplugin_installer`: This module will be removed (an substituted) entirely. It was very likely never meant to be a public API, so this is not expected to cause any disruption.
+- `qgis.pyplugin_installer`: This module will be removed (an substituted) entirely by `qgis.pluginmanager`. `pyplugin_installer` was very likely never meant to be a public API, so this is not expected to cause any disruption.
 
 In terms of C++, the following classes will be changed:
 
