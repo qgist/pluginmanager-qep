@@ -101,7 +101,7 @@ The QGIS plugin manager should be *extended*, allowing it to interact with both 
 
 ## Terminology
 
-With respect to plugins, QGIS can at the moment do the following things:
+With respect to Python plugins, QGIS can do the following things at the moment:
 
 - **install**: A ZIP-file containing a Python module and a `metadata.txt` file are unpacked into a new folder underneath the QGIS Python plugins folder. Other plugins (cross-plugin dependencies) may be installed in the process, too. In the current code base, installing a plugin automatically triggers a load-start sequence, i.e. plugins can not silently installed in the background.
 - **uninstall**: A plugin's folder underneath the QGIS Python plugins folder is removed, i.e. deleted.
