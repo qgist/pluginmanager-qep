@@ -242,7 +242,7 @@ This section proposes a rough structure for the `pluginmanager` module in the fo
 - `metadataspec`: Contains a list of dictionaries specifying the metadata format as well as required serialization and deserialization methods. Metadata fields derive their logic from this specification.
 - `abc`: Holds [abstract bases classes](https://docs.python.org/3/library/abc.html) for type checks, among other uses.
 - `core`: Initializes the package index, triggers the load and start procedures of plugins when QGIS is launched and takes care of launching the plugin manager GUI if a user requests it.
-- `gui`: Likely a folder with further sub-modules containing the plugin manager GUI. It should only contain GUI code and event handling and call the index API for all actions related to actual package management.
+- `gui`: Likely a folder with further sub-modules containing the plugin manager GUI. It should only contain GUI code and event handling. It calls the index API for all actions related to actual package management.
 - `cli`: Based on the proposed design, specifically the index API, a CLI-type alternative front-end becomes theoretically possible. This could be interesting for the QGIS Server. Its implementation is not part of this proposal, although the infrastructure will be prepared.
 
 It is suggested to isolated `metadata`, `metadatafield` and `metadataspec` into a separate, new Python package. Ideally, both QGIS and QGIS-Django could then use this package as a common code base for QGIS Python plugin metadata handling. Furthermore, relevant QGIS documentation could automatically be derived and updated from `metadataspec`.
