@@ -180,11 +180,11 @@ The plugin manager manages Python code. It naturally heavily interacts with Pyth
 
 In contrast, [`conda` does have an official API](https://docs.conda.io/projects/conda/en/latest/api/). Unfortunately, it does not expose every relevant feature of the command line tool. The documentation is mostly outdated and, as it appears, incomplete. Similar to `pip`, the best approach is to run the command line tool as a sub-process. `conda` offers machine-readable output in all critical places.
 
-As of May 2020, only conda offers a ["dry-run" option](https://docs.conda.io/projects/conda/en/latest/commands/install.html#Output,%20Prompt,%20and%20Flow%20Control%20Options). A similar feature [has been considered for pip](https://github.com/pypa/pip/issues/53) but is not implemented yet. However, there are [known workarounds](https://stackoverflow.com/q/29531094/1672565).
+As of May 2020, only `conda` offers a ["dry-run" option](https://docs.conda.io/projects/conda/en/latest/commands/install.html#Output,%20Prompt,%20and%20Flow%20Control%20Options). A similar feature [has been considered for `pip`](https://github.com/pypa/pip/issues/53) but is not implemented yet. However, there are [known workarounds](https://stackoverflow.com/q/29531094/1672565).
 
-While pip and conda are the most widely used Python package managers today, they are not the only ones. It is also fairly easy to imagine that new projects in this field are going to emerge given the scale of the Python ecosystem. Any implementation within QGIS should therefore be modular. If pip or conda or both become irrelevant, it should be easy to deactivate and/or drop the corresponding code. If a new package manager becomes relevant, it should be easy to add support for it. After all, Package management should not be QGIS' responsibility. Python package management is a complicated problem on its own. QGIS should merely provide a thin layer on top of third-party solutions.
+While `pip` and `conda` are the most widely used Python package managers today, they are not the only ones. It is also fairly easy to imagine that new projects in this field are going to emerge given the massive scale of the Python ecosystem. Any implementation within QGIS should therefore be modular. If `pip` or `conda` or both become irrelevant, it should be easy to deactivate and/or drop the corresponding code. If a new package manager becomes relevant, it should be easy to add support for it. After all, Package management should not be QGIS' responsibility. Python package management is a complicated problem on its own. QGIS should merely provide a thin layer on top of third-party solutions.
 
-Any future plugin manager code should be significantly easier to maintain and extend than the current code.
+Any future plugin manager code should be significantly easier to maintain and extend than the current code and naturally of much higher quality.
 
 ## Implementation Details
 
