@@ -227,7 +227,7 @@ Because QGIS still allows C++ plugins, they will be collected into a special C++
 
 This section proposes a rough structure for the `pluginmanager` module in the form of sub-modules.
 
-- `qgis_api`: Collects references to QGIS API in central location
+- `qgis_api`: Collects references to the QGIS API in central location
 - `error`: Special Python exception types related to plugin management
 - `settings`: Additional, required infrastructure around `QgsSettings`. Because of [backwards compatibility](https://lists.osgeo.org/pipermail/qgis-developer/2020-April/060790.html), this is not as straight-forward as it should be.
 - `imports`: Isolation of the Python module import layer (i.e. the override of `builtins.__import__`) and therefore all code related to loading and unloading Python modules
