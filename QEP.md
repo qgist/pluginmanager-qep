@@ -166,7 +166,7 @@ Technically, it is always a good idea to build on top of existing infrastructure
 
 ## Fundamental Design Constraints for a Potential Solution
 
-The Python integration into QGIS has been controversial. To this date, QGIS can be built without Python i.e. the Python integration is optional. This work will *not* change this status-quo.
+The Python integration into QGIS has been controversial. To this date, QGIS can be built without Python i.e. the Python integration is optional. This work will *not* change the status-quo.
 
 QGIS currently compiles with Python 3. However, [a minimum minor versions appears to be unspecified](https://lists.osgeo.org/pipermail/qgis-developer/2020-March/060495.html). The Python ecosystem currently supports [Python 3.5](https://www.python.org/dev/peps/pep-0478/) and greater with [Python 3.5 reaching End of Life on 2020-09-13](https://devguide.python.org/#status-of-python-branches). It is therefore planned to make this work require at least [Python 3.6](https://docs.python.org/3/whatsnew/3.6.html). This particular version introduced [literal string interpolation](https://www.python.org/dev/peps/pep-0498/) and [type hints](https://www.python.org/dev/peps/pep-0484/), among other features. The use of type hints would enable the use of static code analysis tools such as [mypy](http://mypy-lang.org/) within the QGIS code base and could, as a "side effect", greatly increase the overall code quality. Given the scale of the proposed work and the intention of keeping things maintainable, it is planned exploit type hints in this work.
 
