@@ -229,7 +229,7 @@ This section proposes a rough structure for the `pluginmanager` module in the fo
 
 - `qgis_api`: Collects references to the QGIS API in central location
 - `error`: Special Python exception types related to plugin management
-- `settings`: Additional, required infrastructure around `QgsSettings`. Because of [backwards compatibility](https://lists.osgeo.org/pipermail/qgis-developer/2020-April/060790.html), this is not as straight-forward as it should be.
+- `settings`: Additional, required infrastructure around `QgsSettings`. Because of [backwards compatibility](https://lists.osgeo.org/pipermail/qgis-developer/2020-April/060790.html), this is not as straightforward as it should be.
 - `imports`: Isolation of the Python module import layer (i.e. the override of `builtins.__import__`) and therefore all code related to loading and unloading Python modules
 - `index`: Contains a single class, the `Index`. It is the highest level of abstraction for QGIS Python plugin management. A package index holds package repositories and individual plugins. It offers the index API, which is the layer through which the rest of QGIS and the GUI interacts with the package manager module.
 - `plugin`: Contains a single class, the `Plugin`. It represents a single plugin, installed or uninstalled, regardless of the backend. It collects references to all possible, available releases of this plugin.
