@@ -314,7 +314,7 @@ A minimal exception is made with respect to the current cross-plugin dependency 
 
 It is suggested that QGIS can, as a consequence of this proposal, not be built with Python 3.5 or prior while building with Python can remain optional. This should not have any noticeable effect on backwards compatibility as breaking changes in the Python interpreter have become extremely rare and specific (usually minor changes to the standard library) after the Python 2 to 3 transition and its associated massive pain.
 
-It is suggested to scan the entire public QGIS plugin repository of actively maintained plugins compatible with QGIS 3 with automated tests for potential issues prior to a future QGIS release potentially containing the proposed changes. A CI-based testing infrastructure could even go as far as installing and starting every single available, theoretically compatible plugin.
+It is suggested to scan the entire public QGIS plugin repository of actively maintained plugins compatible with QGIS 3 with automated tests for potential issues prior to a future QGIS release potentially containing the proposed changes. A CI-based testing infrastructure could even go as far as installing, loading and starting every single available, theoretically compatible plugin.
 
 # Copyright
 
