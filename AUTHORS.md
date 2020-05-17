@@ -1,1 +1,3 @@
-Sebastian M. Ernst <ernst@pleiszenburg.de>
+# Authors
+
+- Sebastian M. Ernst <ernst@pleiszenburg.de>
