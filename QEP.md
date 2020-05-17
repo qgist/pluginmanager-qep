@@ -298,13 +298,13 @@ As a part of this proposal, alternative approaches, (partial) solutions and diff
 1) Dumping the current plugin installer for good in favor of conda and/or pip: See previous point.
 1) Designing a new QGIS Python plugin package format format or significantly improving the existing "legacy" QGIS Python plugin "package" format - instead of relying on conda packages and pip-installable wheels: Extremely complicated and simply too far beyond the scope of the QGIS project. Large entities working on nothing but package management solutions are massively struggling with similar tasks.
 1) Implementing a real package manager as part of QGIS instead of relying on conda and pip: See previous point.
-1) This proposed work is implemented as a separat QGIS Python plugin: Partially possible, see [proof-of-concept](https://github.com/qgist/pluginmanager). The primary concern here is the fact a separate, external plugin manager would have to inject code into QGIS at run time which makes it hard to maintain and risky to operate. It also can not solve the described problems with respect to plugin dependencies and the plugin loading sequence because it would be a plugin itself at the mercy of the current implementation.
+1) The proposed work is implemented as a separat QGIS Python plugin: Partially possible, see [proof-of-concept](https://github.com/qgist/pluginmanager). The primary concern here is the fact a separate, external plugin manager would have to inject code into QGIS at run time which makes it hard to maintain and risky to operate. It also can not solve the described problems with respect to plugin dependencies and the plugin loading sequence because it would be a plugin itself at the mercy of the current implementation. It would lead to a massive increase in complexity.
 
 # Performance Implications <!-- MUST -->
 
 - **While QGIS performs tasks not related to plugin management: None.**
 - While loading QGIS: Likely some, but it is hard to tell whether the process becomes faster or slower. In any case, the change will not be significant. The overall cleanup should however allow some optimizations which the current plugin manager code does not allow in a clean manner.
-- A repository refresh is very likely going to require more time than before. Early test code suggests single digit seconds per repository per refresh. Because a refresh only happens if a user actually opens the plugin manager UI, it is safe to say that it will not have any negative impact on the overall user experience. The behavior is expected to similar to for instance running `apt update`.
+- A repository refresh is very likely going to require more time than before. Early test code suggests single digit seconds per repository per refresh. Because a refresh only happens if a user actually opens the plugin manager GUI, it is safe to say that it will not have any negative impact on the overall user experience. The behavior is expected to be similar to for instance running `apt update`.
 
 # Backwards Compatibility <!-- MUST -->
 
