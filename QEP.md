@@ -318,7 +318,7 @@ It is suggested to scan the entire public QGIS plugin repository of actively mai
 
 # Copyright
 
-This document has been placed in the public domain under the GPL, see [license](https://github.com/qgist/pluginmanager-qep/blob/master/LICENSE).
+This document has been placed in the public domain under the GPL, see [license](https://github.com/qgist/pluginmanager-qep/blob/master/LICENSE). The copyright belongs to [its authors](https://github.com/qgist/pluginmanager-qep/blob/master/AUTHORS.md).
 
 # Issue Tracking ID(s) <!-- MUST -->
 
