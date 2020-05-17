@@ -54,30 +54,28 @@ Summarizing the above, the following (at times confusing) terminology is relevan
 
 ## Currently Missing Links
 
-Looking at the list of relevant terminology, certain missing links stick out:
+Looking at the list of relevant terminology, certain missing links stick out.
 
 1. QGIS Python plugins can not depend on Python packages.
 2. Python packages can not depend on QGIS Python plugins.
 
-From a technical perspective, there is no good reason why both should not be possible. The root cause of the current state of affairs can be found in the fact that QGIS established its own Python plugin package format and acts as a (limited) package manager independent of other Python package managers. But there is even one more missing link:
+From a technical perspective, there is no good reason why both should not be possible. The root cause of the current state of affairs can be found in QGIS' history. The QGIS project established its own Python plugin "package" format and acts as a (limited) package manager independent of other Python package managers.
 
 3. The QGIS / OSGeo4W Windows installer does not contain a Python package manager (while in fact containing Python packages).
 
-In combination, all three missing links are leading to all sorts of problems and bizarr workarounds. A detailed summary can be fund in [this questions](https://gis.stackexchange.com/q/196002/13332) and its answers on stackexchange.
+In combination, all three missing links are leading to all sorts of problems and bizarr workarounds. A detailed summary can for instance be fund in [this questions](https://gis.stackexchange.com/q/196002/13332) and its answers on stackexchange.
 
-If a plugin author wants to make a QGIS plugin depend on a Python package right now, there are the following options:
+If a plugin author wants to make a QGIS Python plugin depend on a Python package right now, there are the following options:
 
 - The desired Python package is part of the QGIS / OSGeo4W installer - OK
 - The desired Python package is NOT part of the QGIS / OSGeo4W installer:
-    - Do not use the desired Python package as a dependency at all: The plugin might become unfeasible or overly complicated.
-    - Copy the desired Python package into the source tree of the QGIS plugin (official recommendation of the QGIS community): Hard to maintain, leading to bloat, causing licensing issues, not always possible.
-    - Contacting the maintainers and asking for the inclusion of the desired package in *future* releases of QGIS / OSGeo4W (unofficial recommendation of the QGIS community): Plugin can be shipped to existing QGIS installations. QGIS users need to re-install QGIS if they want to use the plugin.
-    - Asking the users to install the desired Python package manually: Not many users can do it, even fewer are willing to do so. The process is not trivial as it usually requires to make pip work first.
-    - Building some kind of Python package install functionality into the QGIS Python plugin: Similar to the last option just a lot more risky. Blowing up a user's QGIS installation in the process is a real risk here.
+    - Do not use the desired Python package as a dependency at all: The QGIS Python plugin might become unfeasible or overly complicated.
+    - Copy the desired Python package into the source tree of the QGIS Python plugin (official recommendation of the QGIS community): Hard to maintain, leading to bloat, causing licensing issues, not always possible.
+    - Contacting the maintainers and asking for the inclusion of the desired package in *future* releases of QGIS / OSGeo4W (unofficial recommendation of the QGIS community): The QGIS Python plugin can not be shipped to existing QGIS installations. QGIS users need to re-install QGIS if they want to use the QGIS Python plugin.
+    - Asking the users to install the desired Python package manually: Not many users can do it, even fewer are willing to do so. The process is both annoying and non-trivial. It requires to make `pip` work first.
+    - Building some kind of Python package install functionality into the QGIS Python plugin, i.e. automating the previous approach: Non-trivial and very risky. Blowing up a user's QGIS installation in the process is a real possibility here.
 
-In addition, there is one last critical missing link:
-
-4. If the desired Python package contains non-Python components and is not available as a wheel, making a QGIS plugin depend on it in any reliable and relatively easy to distribute form is virtually impossible at this point.
+4. If the desired Python package contains non-Python components and is not available as a wheel, making a QGIS Python plugin depend on it in any reliable and relatively easy to distribute form is virtually impossible at this point.
 
 ## Currently Unsupported Use-Cases
 
