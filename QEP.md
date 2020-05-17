@@ -86,9 +86,9 @@ So far, the QGIS community treats QGIS Python plugins as a "scripting extension"
 - Inclusion of C++ code: [swig](http://www.swig.org/), [sip](https://www.riverbankcomputing.com/software/sip) or [plain C++ Python extensions](https://docs.python.org/3/extending/extending.html)
 - Access to Fortran libraries: [f2py](https://numpy.org/doc/stable/f2py/index.html)
 - GPGPU: [cupy](https://cupy.chainer.org/), a CUDA-enabled numpy-drop-in-replacement, [PyCUDA](https://documen.tician.de/pycuda/) or [PyOpenCL](https://documen.tician.de/pyopencl/)
-- Machine Learning, for instance in the context of satellite image classification and vectorization: [tensorflow](https://www.tensorflow.org/), [pytorch](https://pytorch.org/), [scikit-learn](https://scikit-learn.org/) and others
+- Machine Learning, for instance in the context of satellite image classification and vectorization: [tensorflow](https://www.tensorflow.org/), [pytorch](https://pytorch.org/), [scikit-learn](https://scikit-learn.org/) or others
 
-Besides, at the higher end of computing, it has become a common practice to run operations on clusters and even super computers from within for various types of [interactive notebooks](https://en.wikipedia.org/wiki/Notebook_interface), for instance [Jupyter](https://jupyter.org/) notebooks. The Python ecosystem offers excellent Python packages for this purpose, which actually run just fine from within QGIS (e.g. in a QGIS plugin or from the QGIS Python console):
+Besides, at the higher end of computing, it has become a common practice to run operations on clusters and even super computers from within for various types of [interactive notebooks](https://en.wikipedia.org/wiki/Notebook_interface), for instance [Jupyter](https://jupyter.org/) notebooks. The Python ecosystem offers excellent Python packages for this purpose, which actually run just fine from within QGIS (e.g. in a QGIS Python plugin or from the QGIS Python console):
 
 - [MPI for Python](https://mpi4py.readthedocs.io/en/stable/), a classic in this field - usually used in conjunction with C, C++ and Fortran extensions
 - [Dask](https://dask.org/), a rather young but well funded player in the field - noticeable, among other features, for scaling numpy-compatible arrays and pandas-compatible dataframes too large to fit into a single machine's memory across multiple machines' memory
