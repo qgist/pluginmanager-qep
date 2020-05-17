@@ -16,7 +16,7 @@ QGIS Python plugins can not explicitly depend on regular Python packages. Althou
 
 ## Background
 
-QGIS offers the possibility to implement plugins, both in C++ and in Python. While it is complicated to implement and even harder to distribute C++ plugins, it is relatively easy to implement and distribute Python plugins. QGIS' Python APIs offer access to almost all relevant QGIS features. Therefore, QGIS's extensibility through Python can be considered one of its greatest strengths.
+QGIS offers the possibility to implement plugins, both in C++ and in Python. While it can be considered complicated to implement and even harder to distribute C++ plugins, it is relatively easy to implement and distribute Python plugins. QGIS' Python APIs offer access to almost all relevant QGIS features. Therefore, QGIS's extensibility through Python can be understood one of its greatest strengths.
 
 As of May 2020, [Python is the third-most popular programming language](https://www.tiobe.com/tiobe-index/) in active use only outperformed by C and Java. In this context, Python is currently seeing a massive increase in adoption across many different types of applications and disciplines - in a lot of cases driving users and developers away from established domain-specific proprietary solutions and into open source. It is safe to say that Python did something that only very few open source projects and virtually no programming language on its own managed to do: It has diverted significant amounts of funding into the open source ecosystem. The Python package ecosystem reflects that.
 
