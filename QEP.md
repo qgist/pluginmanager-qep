@@ -236,7 +236,7 @@ This section proposes a rough structure for the `pluginmanager` module in the fo
 - `pluginrelease`: Contains a single class, the `PluginRelease`. A plugin release represents one specific version of a plugin from one specific backend. If two backends offer the same version of a plugin, those two options of getting this version of the plugin will be considered different releases.
 - `repository`: Contains a single class, the `Repository`. A plugin repository represents all plugin releases offered by one specific package source from one specific package backend. A single default C++ repository and the default public QGIS Python plugin repository will be protected.
 - `backends`: Likely a folder with further sub-modules, one per backend. It contains code specific to individual backends.
-- `version`: Contains a single class, the `Version`. Contains logic to parse, compare and export software versions. Very similar to [semver](https://github.com/python-semver/python-semver), but specific to QGIS' needs and fully backwards compatible to the old version comparison logic.
+- `version`: Contains a single class, the `Version`. Contains logic to parse, compare and export software versions. This will be very similar to [semver](https://github.com/python-semver/python-semver), but specific to QGIS' needs and fully backwards compatible to the old version comparison logic.
 - `metadata`: Contains a single class, the `Metadata`. This class represents the metadata of a single plugin release. It allows to import metadata from different sources and formats, to export metadata to different formats and to compare metadata.
 - `metadatafield`: Contains a single class, the `MetadataField`. It represents one single field of metadata and handles import/parsing, comparison and serialization of the data in this field.
 - `metadataspec`: Contains a list of dictionaries specifying the metadata format as well as required serialization and deserialization methods. Metadata fields derive their logic from this specification.
@@ -245,7 +245,7 @@ This section proposes a rough structure for the `pluginmanager` module in the fo
 - `gui`: Likely a folder with further sub-modules containing the plugin manager GUI. It should only contain GUI code and event handling. It calls the index API for all actions related to actual package management.
 - `cli`: Based on the proposed design, specifically the index API, a CLI-type alternative front-end becomes theoretically possible. This could be interesting for the QGIS Server. Its implementation is not part of this proposal, although the infrastructure will be prepared.
 
-It is suggested to isolated `metadata`, `metadatafield` and `metadataspec` into a separate, new Python package. Ideally, both QGIS and QGIS-Django could then use this package as a common code base for QGIS Python plugin metadata handling. Furthermore, relevant QGIS documentation could automatically be derived and updated from `metadataspec`.
+It is suggested to isolated `metadata`, `metadatafield`, `metadataspec` and `version` into a separate, new Python package. Ideally, both QGIS and QGIS-Django could then use this package as a common code base for QGIS Python plugin metadata handling. Furthermore, relevant QGIS documentation could automatically be derived and updated from `metadataspec`.
 
 A work-in-progress proof-of-concept QGIS plugin manager *plugin*, which is already using the proposed structure, [can be found here](https://github.com/qgist/pluginmanager).
 
