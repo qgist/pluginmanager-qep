@@ -35,5 +35,5 @@ For submission into the 2020 round of QGIS Grants proposals.
         - Implement step 2 (as described in QEP). Required time: Roughly 2 full weeks.
         - Implement tests for new plugin manager module and fix bugs along the way. Required time: Roughly 1 to 2 full weeks.
         - Write documentation. Required time: Roughly 2 to 3 days.
-    - Total allocated time for project: 5 weeks, including buffers.
+    - Total allocated time for project: 5 weeks full time, including buffers.
     - I am planning to maintain this code long-term.
