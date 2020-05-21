@@ -32,7 +32,7 @@ All of the described problems - from complicated to use setuptools to the lack o
 
 QGIS itself has a really interesting position within the Python ecosystem. One could say that ["the relationship is complicated"](https://www.urbandictionary.com/define.php?term=It%27s%20complicated). Its massive Python API technically makes it a Python module. With sufficient background knowledge, QGIS can therefore be used in combination with virtually every other Python package in existence. The problem here is the mentioned, required background knowledge. [QGIS has been packaged as a conda-forge Python package](https://github.com/conda-forge/qgis-feedstock/), which technically makes it a Python package. While it probably has not been attempted, it could therefore also be packaged as a wheel. Besides, QGIS Python plugins are technically also [Python modules](https://docs.python.org/3/tutorial/modules.html). Because they are lacking any form of installation scripts or binary distribution formats such as wheel, they are no real Python packages. They can not (safely & reliably at least) contain binary components or simply components written in any language other than Python. However, QGIS Python plugins contain meta data in a special format, [metadata.txt](https://docs.qgis.org/3.10/en/docs/pyqgis_developer_cookbook/plugins/plugins.html#plugin-metadata), which makes them some sort of a special, feature-limited package format. QGIS Python plugin "packages" can not explicitly specify dependencies to other Python packages or non-Python tools or libraries. Strangely, QGIS (for Windows) is [shipped in a bundle](https://www.qgis.org/en/site/forusers/download.html) with a Python interpreter and a small selection of Python packages, which technically makes it a very limited Python distribution lacking any kind of reasonable package management. Also strangely, QGIS Python plugin "packages" have a very limited ability to depend on other QGIS Python plugin "packages" ("cross-plugin dependencies" or "inter-plugin dependencies") - a feature which was added to QGIS 3.8 (see [QEP #132](https://github.com/qgis/QGIS-Enhancement-Proposals/issues/132) and [PR #9619](https://github.com/qgis/QGIS/pull/9619)). Technically, this makes QGIS itself sort of a package manager with very limited dependency handling.
 
-## Terminology
+## Packaging Terminology
 
 Summarizing the above, the following (at times confusing) terminology is relevant within this document:
 
@@ -99,9 +99,9 @@ There are examples in the wild of people doing similar things with QGIS, e.g. [a
 
 The QGIS plugin manager should be *extended*, allowing it to interact with both `conda` and `pip`. It should be allowed to distribute QGIS Python plugins (a) in the existing, unchanged "legacy" QGIS Python plugin "package" format, (b) as conda packages and (c) pip-installable wheels and source distributions. QGIS on its own should not be a package manager except for "legacy" QGIS Python plugin packages. It simply is not within the scope of the QGIS project. QGIS should merely interact with existing infrastructure. The cross-plugin dependency mechanism within the QGIS Python plugin "package" format should be cleaned up.
 
-## Terminology
+## QGIS Plugin Management Terminology
 
-With respect to Python plugins, QGIS can do the following things at the moment:
+Concerning Python plugins, QGIS can do the following things at the moment:
 
 - **install**: A ZIP-file containing a Python module and a `metadata.txt` file are unpacked into a new folder underneath the QGIS Python plugins folder. Other QGIS Python plugins (cross-plugin dependencies) may be installed in the process, too. In the current code base, installing a QGIS Python plugin automatically triggers a hard-coded load-start sequence, i.e. QGIS Python plugins can not be silently installed in the background.
 - **uninstall**: A QGIS Python plugin's folder underneath the QGIS Python plugins folder is removed, i.e. deleted.
