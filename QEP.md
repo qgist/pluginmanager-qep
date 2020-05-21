@@ -12,6 +12,17 @@
 
 QGIS Python plugins can not explicitly depend on regular Python packages. Although QGIS Python plugins can depend on other QGIS Python plugins, introduced in QGIS 3.8, this mechanism is far away from mature. Code quality, design and maintainability of the entire current plugin management system within QGIS, based on a detailed analysis of version 3.12, are questionable at best. This document proposes (a) to re-implement the existing plugin management system with all of its features, (b) to clean up the cross-plugin dependency design and (c) to add support for both the `conda` and the `pip` Python package managers for managing QGIS Python plugins - effectively adding support for dependencies between QGIS Python plugins and regular Python packages. These proposed changes are fully backward compatible and do not introduce adverse performance characteristics.
 
+# Table of Contents
+
+1) [Motivation](https://github.com/qgist/pluginmanager-qep/blob/master/QEP.md#motivation)
+2) [Proposed, Preferred Solution](https://github.com/qgist/pluginmanager-qep/blob/master/QEP.md#proposed-preferred-solution-)
+3) [Alternative, Unfavorable Solutions](https://github.com/qgist/pluginmanager-qep/blob/master/QEP.md#alternative-unfavorable-solutions)
+4) [Performance Implications](https://github.com/qgist/pluginmanager-qep/blob/master/QEP.md#performance-implications-)
+5) [Backward Compatibility](https://github.com/qgist/pluginmanager-qep/blob/master/QEP.md#backward-compatibility-)
+6) [Copyright](https://github.com/qgist/pluginmanager-qep/blob/master/QEP.md#copyright)
+7) [Issue Tracking ID(s)](https://github.com/qgist/pluginmanager-qep/blob/master/QEP.md#issue-tracking-ids-)
+8) [Votes](https://github.com/qgist/pluginmanager-qep/blob/master/QEP.md#votes-)
+
 # Motivation
 
 ## Background
