@@ -26,7 +26,7 @@ QGIS Python plugins can not explicitly depend on regular Python packages. Althou
         - [Tasks](https://github.com/qgist/pluginmanager-qep/blob/master/QEP.md#tasks)
         - [Structural Overview](https://github.com/qgist/pluginmanager-qep/blob/master/QEP.md#structural-overview)
         - [State of the Code](https://github.com/qgist/pluginmanager-qep/blob/master/QEP.md#state-of-the-code)
-        - ["Summary of Findings"](https://github.com/qgist/pluginmanager-qep/blob/master/QEP.md#summary-of-findings)
+        - [Summary of Findings](https://github.com/qgist/pluginmanager-qep/blob/master/QEP.md#summary-of-findings)
     - [Fundamental Design Constraints for a Potential Solution](https://github.com/qgist/pluginmanager-qep/blob/master/QEP.md#fundamental-design-constraints-for-a-potential-solution)
     - [Implementation Details](https://github.com/qgist/pluginmanager-qep/blob/master/QEP.md#implementation-details)
         - [Step 1: Fully backward-compatible re-implementation of the plugin management system](https://github.com/qgist/pluginmanager-qep/blob/master/QEP.md#step-1-fully-backward-compatible-re-implementation-of-the-plugin-management-system)
