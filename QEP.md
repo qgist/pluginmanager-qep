@@ -23,7 +23,7 @@ QGIS Python plugins can not explicitly depend on regular Python packages. Althou
 7) [Issue Tracking ID(s)](https://github.com/qgist/pluginmanager-qep/blob/master/QEP.md#issue-tracking-ids-)
 8) [Votes](https://github.com/qgist/pluginmanager-qep/blob/master/QEP.md#votes-)
 
-# Motivation
+# 1. Motivation
 
 ## Background
 
@@ -106,7 +106,7 @@ Besides, at the higher end of computing, it has become a common practice to run 
 
 There are examples in the wild of people doing similar things with QGIS, e.g. [at the Joint Research Centre (JRC)](https://ec.europa.eu/eurostat/cros/system/files/dawos18_lecture.soille.jeodpp.pdf). Unfortunately, deployments of this kind are currently prohibitively complicated for many smaller entities.
 
-# Proposed, Preferred Solution <!-- MUST -->
+# 2. Proposed, Preferred Solution <!-- MUST -->
 
 The QGIS plugin manager should be *extended*, allowing it to interact with both `conda` and `pip`. It should be allowed to distribute QGIS Python plugins (a) in the existing, unchanged "legacy" QGIS Python plugin "package" format, (b) as conda packages and (c) pip-installable wheels and source distributions. QGIS on its own should not be a package manager except for "legacy" QGIS Python plugin packages. It simply is not within the scope of the QGIS project. QGIS should merely interact with existing infrastructure. The cross-plugin dependency mechanism within the QGIS Python plugin "package" format should be cleaned up.
 
@@ -299,7 +299,7 @@ Currently, both QGIS and QGIS-Django handle plugin metadata but maintain separat
 
 [A work-in-progress proof-of-concept implementation](https://github.com/qgist/pluginmanager).
 
-# Alternative, Unfavorable Solutions
+# 3. Alternative, Unfavorable Solutions
 
 As a part of this proposal, alternative approaches, (partial) solutions and different design considerations were explored. The following list contains several noteworthy candidates and the reasons why those are unfavorable or even impossible:
 
@@ -311,13 +311,13 @@ As a part of this proposal, alternative approaches, (partial) solutions and diff
 1) Implementing a real package manager as part of QGIS instead of relying on conda and pip: See the previous point.
 1) The proposed work is implemented as a separate QGIS Python plugin: Partially possible, see [proof-of-concept](https://github.com/qgist/pluginmanager). The primary concern here is the fact a separate, external plugin manager would have to inject code into QGIS at run time which makes it hard to maintain and risky to operate. It also can not solve the described problems concerning plugin dependencies and the plugin loading sequence because it would be a plugin itself at the mercy of the current implementation. It would lead to a massive increase in complexity.
 
-# Performance Implications <!-- MUST -->
+# 4. Performance Implications <!-- MUST -->
 
 - **While QGIS performs tasks not related to plugin management: None.**
 - While loading QGIS: Likely some, but it is hard to tell whether the process becomes faster or slower. In any case, the change will not be significant. The overall cleanup should, however, allow some optimizations which the current plugin manager code does not allow in a clean manner.
 - A repository refresh is very likely going to require more time than before. Early test code suggests single digit seconds per repository per refresh. Because a refresh only happens if a user opens the plugin manager GUI, it is safe to say that it will not have any negative impact on the overall user experience. The behavior is expected to be similar to for instance running `apt update`.
 
-# Backward Compatibility <!-- MUST -->
+# 5. Backward Compatibility <!-- MUST -->
 
 **Full backward compatibility for plugins will be maintained.**
 
@@ -327,14 +327,14 @@ It is suggested that QGIS can, as a consequence of this proposal, not be built w
 
 It is suggested to scan the entire public QGIS plugin repository of actively maintained plugins compatible with QGIS 3 with automated tests for potential issues prior to a future QGIS release potentially containing the proposed changes. A CI-based testing infrastructure could even go as far as installing, loading and starting every single available, theoretically compatible plugin.
 
-# Copyright
+# 6. Copyright
 
 This document has been placed in the public domain under the GPL, see [license](https://github.com/qgist/pluginmanager-qep/blob/master/LICENSE). The copyright belongs to [its authors](https://github.com/qgist/pluginmanager-qep/blob/master/AUTHORS.md).
 
-# Issue Tracking ID(s) <!-- MUST -->
+# 7. Issue Tracking ID(s) <!-- MUST -->
 
 None. <!-- TODO -->
 
-# Votes <!-- MUST -->
+# 8. Votes <!-- MUST -->
 
 None. <!-- TODO -->
