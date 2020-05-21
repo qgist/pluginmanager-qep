@@ -12,7 +12,7 @@ For submission into the 2020 round of QGIS Grants proposals.
 - [x] Grant request in Euros: 10k Euro <!-- between 1 Euro and 10,000 Euros -->
 - [x] Proposal title: Turning Plugin Management into Actual Package Management
 - [x] Proposal details: See [QEP's Abstract](https://github.com/qgist/pluginmanager-qep/blob/master/QEP.md#abstract-)
-- [x] QEP link: https://github.com/qgis/QGIS-Enhancement-Proposals/* / https://github.com/qgist/pluginmanager-qep
+- [x] QEP link: https://github.com/qgis/QGIS-Enhancement-Proposals/issues/179 / https://github.com/qgist/pluginmanager-qep
 - [x] History: <!-- Tell us a little about what work has already been done related to your grant proposal. Are you starting from scratch or are do you plan to build on the work of others? -->
     - I explored options by developing a proof-of-concept QGIS plugin - [see Github repo](https://github.com/qgist/pluginmanager).
     - I tried and studied every bit of proposed technology in terms of figuring out the overall feasibility of the proposed changes.
