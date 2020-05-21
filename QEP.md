@@ -290,29 +290,29 @@ Currently, both QGIS and QGIS-Django handle plugin metadata but maintain separat
 
 # Alternative, Unfavorable Solutions
 
-As a part of this proposal, alternative approaches, (partial) solutions and different design considerations were explored. The following list contains a number of noteworthy candidates and the reasons why those are unfavorable or even impossible:
+As a part of this proposal, alternative approaches, (partial) solutions and different design considerations were explored. The following list contains several noteworthy candidates and the reasons why those are unfavorable or even impossible:
 
-1) Staying at the current solution by not implementing the proposed work: See "Analysis of Current Implementation", "Currently Unsupported Use-Cases" and "Currently Missing Links" sections of this document.
-1) Refactoring the current implementation: See "Conclusion" sub-section within the "Analysis of Current Implementation" section of this document.
-1) Dropping support for the "legacy" QGIS Python plugin "package" format: It would simplify the proposed work significantly. However, breaking backwards compatibility at this scale has the potential to destroy the existing plugin ecosystem.
-1) Dumping the current plugin installer for good in favor of conda and/or pip: See previous point.
-1) Designing a new QGIS Python plugin package format format or significantly improving the existing "legacy" QGIS Python plugin "package" format - instead of relying on conda packages and pip-installable wheels: Extremely complicated and simply too far beyond the scope of the QGIS project. Large entities working on nothing but package management solutions are massively struggling with similar tasks.
-1) Implementing a real package manager as part of QGIS instead of relying on conda and pip: See previous point.
-1) The proposed work is implemented as a separat QGIS Python plugin: Partially possible, see [proof-of-concept](https://github.com/qgist/pluginmanager). The primary concern here is the fact a separate, external plugin manager would have to inject code into QGIS at run time which makes it hard to maintain and risky to operate. It also can not solve the described problems with respect to plugin dependencies and the plugin loading sequence because it would be a plugin itself at the mercy of the current implementation. It would lead to a massive increase in complexity.
+1) Staying at the current solution by not implementing the proposed work: See ["Analysis of Current Implementation"](https://github.com/qgist/pluginmanager-qep/blob/master/QEP.md#analysis-of-current-implementation), ["Currently Unsupported Use-Cases"](https://github.com/qgist/pluginmanager-qep/blob/master/QEP.md#currently-unsupported-use-cases) and ["Currently Missing Links"](https://github.com/qgist/pluginmanager-qep/blob/master/QEP.md#currently-missing-links) sections of this document.
+1) Refactoring the current implementation: See the ["Conclusion"](https://github.com/qgist/pluginmanager-qep/blob/master/QEP.md#conclusion) sub-section within the "Analysis of Current Implementation" section of this document.
+1) Dropping support for the "legacy" QGIS Python plugin "package" format: It would simplify the proposed work significantly. However, breaking backward compatibility at this scale has the potential to destroy the existing plugin ecosystem.
+1) Dumping the current plugin installer for good in favor of conda and/or pip: See the previous point.
+1) Designing a new QGIS Python plugin package format or significantly improving the existing "legacy" QGIS Python plugin "package" format - instead of relying on conda packages and pip-installable wheels: Extremely complicated and simply too far beyond the scope of the QGIS project. Large entities working on nothing but package management solutions are massively struggling with similar tasks.
+1) Implementing a real package manager as part of QGIS instead of relying on conda and pip: See the previous point.
+1) The proposed work is implemented as a separate QGIS Python plugin: Partially possible, see [proof-of-concept](https://github.com/qgist/pluginmanager). The primary concern here is the fact a separate, external plugin manager would have to inject code into QGIS at run time which makes it hard to maintain and risky to operate. It also can not solve the described problems concerning plugin dependencies and the plugin loading sequence because it would be a plugin itself at the mercy of the current implementation. It would lead to a massive increase in complexity.
 
 # Performance Implications <!-- MUST -->
 
 - **While QGIS performs tasks not related to plugin management: None.**
-- While loading QGIS: Likely some, but it is hard to tell whether the process becomes faster or slower. In any case, the change will not be significant. The overall cleanup should however allow some optimizations which the current plugin manager code does not allow in a clean manner.
-- A repository refresh is very likely going to require more time than before. Early test code suggests single digit seconds per repository per refresh. Because a refresh only happens if a user actually opens the plugin manager GUI, it is safe to say that it will not have any negative impact on the overall user experience. The behavior is expected to be similar to for instance running `apt update`.
+- While loading QGIS: Likely some, but it is hard to tell whether the process becomes faster or slower. In any case, the change will not be significant. The overall cleanup should, however, allow some optimizations which the current plugin manager code does not allow in a clean manner.
+- A repository refresh is very likely going to require more time than before. Early test code suggests single digit seconds per repository per refresh. Because a refresh only happens if a user opens the plugin manager GUI, it is safe to say that it will not have any negative impact on the overall user experience. The behavior is expected to be similar to for instance running `apt update`.
 
-# Backwards Compatibility <!-- MUST -->
+# Backward Compatibility <!-- MUST -->
 
-**Full backwards compatibility for plugins will be maintained.**
+**Full backward compatibility for plugins will be maintained.**
 
-A minimal exception is made with respect to the current cross-plugin dependency mechanism. Due to its lack of proper specification and documentation as well as only a single plugin using it as of May 2020, no serious problems are to be expected. It is very likely that this plugin will continue to work without changes. In terms of proprietary plugins and their potential current use of cross-plugin dependencies, a survey might be conducted for better understanding the actual needs of their developers.
+A minimal exception is made with respect to the current cross-plugin dependency mechanism. Due to its lack of proper specification and documentation as well as only a single plugin using it as of May 2020, no serious problems are to be expected. This plugin is going to continue to work without changes. In terms of proprietary plugins and their potential current use of cross-plugin dependencies, a survey might be conducted to better understand the actual needs of their developers.
 
-It is suggested that QGIS can, as a consequence of this proposal, not be built with Python 3.5 or prior while building with Python can remain optional. This should not have any noticeable effect on backwards compatibility as breaking changes in the Python interpreter have become extremely rare and specific (usually minor changes to the standard library) after the Python 2 to 3 transition and its associated massive pain.
+It is suggested that QGIS can, as a consequence of this proposal, not be built with Python 3.5 or prior while building with Python can remain optional. This should not have any noticeable effect on backward compatibility as breaking changes in the Python interpreter have become extremely rare and specific (usually minor changes to the standard library) after the Python 2 to 3 transition and its associated massive pain.
 
 It is suggested to scan the entire public QGIS plugin repository of actively maintained plugins compatible with QGIS 3 with automated tests for potential issues prior to a future QGIS release potentially containing the proposed changes. A CI-based testing infrastructure could even go as far as installing, loading and starting every single available, theoretically compatible plugin.
 
