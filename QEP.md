@@ -12,6 +12,8 @@
 
 QGIS Python plugins can not explicitly depend on regular Python packages. Although QGIS Python plugins can depend on other QGIS Python plugins, introduced in QGIS 3.8, this mechanism is far away from mature. Code quality, design and maintainability of the entire current plugin management system within QGIS, based on a detailed analysis of version 3.12, are questionable at best. This document proposes (a) to re-implement the existing plugin management system with all of its features, (b) to clean up the cross-plugin dependency design and (c) to add support for both the `conda` and the `pip` Python package managers for managing QGIS Python plugins - effectively adding support for dependencies between QGIS Python plugins and regular Python packages. These proposed changes are fully backward compatible and do not introduce adverse performance characteristics.
 
+This proposal does intentionally *not* address the question of "Python environments", i.e. [virtual environments](https://docs.python.org/3/glossary.html#term-virtual-environment) and [conda environments](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html).
+
 # Table of Contents
 
 1) [Motivation](https://github.com/qgist/pluginmanager-qep/blob/master/QEP.md#1-motivation)
@@ -72,7 +74,7 @@ Summarizing the above, the following (at times confusing) terminology is relevan
 - **QGIS Python plugin {"package"}**: [A special package format containing a single Python module](https://docs.qgis.org/3.10/en/docs/pyqgis_developer_cookbook/plugins/plugins.html). A QGIS Python plugin "package" can not (explicitly) depend on other Python packages. However, it can (with certain limitations) depend on other QGIS Python plugins. In the context of this proposal, it will sometimes be referred to as the "legacy format".
 - **Non-Python components of Python packages**: E.g. actual C with build instructions or compiled C. This is what QGIS Python plugins can not contain at the moment.
 - **Package manager**: A tool for installing & uninstalling packages while resolving dependency trees, among other tasks. QGIS itself has (very limited) functionality of this kind and can therefore be considered a rudimentary package manager. Otherwise, `apt`, `yum`, `zypper`, `pip` and `conda` are relevant examples.
-- **Python distribution**: A usually self-contained collection of pre-built Python packages plus a package manager plus an installer. Anaconda is a typical example. The QGIS / OSGeo4W Windows installer also falls within this category.
+- **Python distribution**: A usually self-contained collection of pre-built Python packages plus a package manager plus an installer plus a Python interpreter. Anaconda is a typical example. The QGIS / OSGeo4W Windows installer also falls within this category.
 - **Python package dependencies**: One Python package depending on another Python package, e.g. pandas depends on numpy.
 - **Cross-plugin dependencies** / **inter-plugin dependencies**: One QGIS Python plugin "package" can depend on another QGIS Python plugin "package".
 - Anaconda: (1) a company, (2) a product, (3) a Python distribution, (4) an open specification
@@ -107,6 +109,8 @@ If a plugin author wants to make a QGIS Python plugin depend on a Python package
     - Building some kind of Python package install functionality into the QGIS Python plugin, i.e. automating the previous approach: Non-trivial and very risky. Blowing up a user's QGIS installation in the process is a real possibility here.
 
 4. **If the desired Python package contains non-Python components and is not available as a wheel, making a QGIS Python plugin depend on it in any reliable and relatively easy to distribute form is virtually impossible at this point.**
+
+5. **A QGIS Python plugin can not contain non-Python or binary components.**
 
 ## Currently Unsupported Use-Cases
 
