@@ -284,6 +284,11 @@ It is suggested to isolated `metadata`, `metadatafield`, `metadataspec` and `ver
 
 A work-in-progress proof-of-concept QGIS plugin manager *plugin*, which is already using the proposed structure, [can be found here](https://github.com/qgist/pluginmanager).
 
+### FAQ
+
+- PyPI?
+- ...
+
 ## Affected APIs
 
 **From a user's perspective, no QGIS API will change.** From a QGIS developer's perspective, there will be internal changes. This section lists those internal changes.
