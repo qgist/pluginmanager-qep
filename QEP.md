@@ -262,7 +262,7 @@ Because QGIS still allows C++ plugins, they will be collected into a special C++
 
 This section proposes a rough structure for the `pluginmanager` module in the form of sub-modules.
 
-- `qgis_api`: Collects references to the QGIS API in central location
+- `qgis_api`: Collects references to the QGIS API in a central location
 - `error`: Special Python exception types related to plugin management
 - `settings`: Additional, required infrastructure around `QgsSettings`. Because of [backward compatibility](https://lists.osgeo.org/pipermail/qgis-developer/2020-April/060790.html), this is not as straightforward as it should be.
 - `imports`: Isolation of the Python module import layer (i.e. the override of `builtins.__import__`) and therefore all code related to loading and unloading Python modules
@@ -272,7 +272,7 @@ This section proposes a rough structure for the `pluginmanager` module in the fo
 - `repository`: Contains a single class, the `Repository`. A plugin repository represents all plugin releases offered by one specific package source from one specific package backend. A single default C++ repository and the default public QGIS Python plugin repository will be protected.
 - `backends`: Likely a folder with further sub-modules, one per backend. It contains code specific to individual backends.
 - `version`: Contains a single class, the `Version`. It contains logic to parse, compare and export software versions. This will be very similar to [semver](https://github.com/python-semver/python-semver), but specific to QGIS' needs and fully backward compatible with the old version comparison logic.
-- `metadata`: Contains a single class, the `Metadata`. This class represents the metadata of a single plugin release. It allows to import metadata from different sources and formats, to export metadata to different formats and to compare metadata.
+- `metadata`: Contains a single class, the `Metadata`. This class represents the metadata of a single plugin release. It allows to (a) import metadata from different sources and formats, to (b) export metadata to different formats and to (c) compare metadata.
 - `metadatafield`: Contains a single class, the `MetadataField`. It represents one single field of metadata and handles import/parsing, comparison and serialization of the data in this field.
 - `metadataspec`: Contains a list of dictionaries specifying the metadata format as well as required serialization and deserialization methods. Metadata fields derive their logic from this specification.
 - `abc`: Holds [abstract bases classes](https://docs.python.org/3/library/abc.html) for type checks, among other uses.
