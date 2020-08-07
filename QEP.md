@@ -308,10 +308,10 @@ In terms of C++, the following classes will be changed:
 Relative to the root of the QGIS 3.12 codebase:
 
 - `/python/utils.py`: Although some plugins are using APIs from this module, [it is unclear which methods are meant to be stable API](https://lists.osgeo.org/pipermail/qgis-developer/2020-April/061056.html) and which methods and properties are internal. While its APIs will therefore be kept completely compatible, about 90% of its code will be rewritten.
-- `/python/pyplugin_installer/*.py`: While from a user's perspective the UI will be kept unchanged, this this code will be rewritten entirely and the mentioned files removed. Because this is not a public API, compatibility is not a concern here.
+- `/python/pyplugin_installer/*.py`: While from a user's perspective the UI will be kept unchanged, this code will be rewritten entirely and the mentioned files removed. Because this is not a public API, compatibility is not a concern here.
 - `/python/pyplugin_installer/*.ui`: Can remain largely untouched but will be moved to new `pluginmanager` module folder.
 - `/src/ui/qgspluginmanagerbase.ui`: Will be moved into the `pluginmanager` module folder.
-- `/src/app/pluginmanager/*.*`: Most of the current logic will be rewritten in Python and therefore removed here. What remains is a skeleton fall-back UI that allows to activate & deactivate C++ plugins if QGIS is built without Python.
+- `/src/app/pluginmanager/*.*`: Most of the current logic will be rewritten in Python and therefore removed. What remains is a skeleton fall-back UI that allows to activate & deactivate C++ plugins if QGIS is built without Python.
 - `/src/app/qgspluginregistry.*`: These files offer mostly redundant features which can be cleaned up. At the end, they should only manage C++ plugins. Its class should be exposed to the C++ fallback UI and the new Python plugin manager.
 - `/src/python/qgspythonutilsimpl.cpp`: This file offers a C++ layer into `/python/utils.py`. Most of this code can be removed, basically only leaving the Python thread initialization and termination.
 - `/tests/src/app/testqgisapppython.cpp`: Tests of obsolete C++ code can be removed.
@@ -322,7 +322,7 @@ The proposed work would greatly benefit from the following changes in projects r
 
 - [QGIS-Django](https://github.com/qgis/QGIS-Django), which offers `plugins.xml`, should add two new fields to it: `plugin_dependencies` and a hash sum for plugin ZIP-files.
 
-Currently, both QGIS and QGIS-Django handle plugin metadata but maintain separate and slightly different code for parsing, analyzing and validating plugin metadata files. As part of the proposed work, it is suggested to make both projects use a common code basis for this purpose.
+Currently, both QGIS and QGIS-Django handle plugin metadata but maintain separate and slightly different code for parsing, analyzing and validating plugin metadata files. As part of the proposed work, it is suggested to make both projects use a common codebase for this purpose.
 
 ## Example <!-- MUST -->
 
@@ -336,7 +336,8 @@ As a part of this proposal, alternative approaches, (partial) solutions and diff
 1) Refactoring the current implementation: See the ["Summary of Findings"](https://github.com/qgist/pluginmanager-qep/blob/master/QEP.md#summary-of-findings) sub-section within the "Analysis of Current Implementation" section of this document.
 1) Dropping support for the "legacy" QGIS Python plugin "package" format: It would simplify the proposed work significantly. However, breaking backward compatibility at this scale has the potential to destroy the existing plugin ecosystem.
 1) Dumping the current plugin installer for good in favor of conda and/or pip: See the previous point.
-1) Designing a new QGIS Python plugin package format or significantly improving the existing "legacy" QGIS Python plugin "package" format - instead of relying on conda packages and pip-installable wheels: Extremely complicated and simply too far beyond the scope of the QGIS project. Large entities working on nothing but package management solutions are massively struggling with similar tasks.
+1) Converting existing plugins to wheels or conda packages on the repository / server-side (maybe even "on demand"): Complex implementation with respect to backward compatibility to older versions of QGIS. Not easy to set up for people operating their custom, local plugin repositories.
+1) Designing a new QGIS Python plugin package format or significantly improving the existing "legacy" QGIS Python plugin "package" format by e.g. adding fields like `pip_dependencies` or `conda_dependencies` - instead of relying on conda packages and pip-installable wheels for the plugins themselves: Extremely complicated and simply too far beyond the scope of the QGIS project. Large entities working on nothing but package management solutions are massively struggling with similar tasks. Besides, it would only make the plugin system harder to maintain and almost impossible to deprecate.
 1) Implementing a real package manager as part of QGIS instead of relying on conda and pip: See the previous point.
 1) The proposed work is implemented as a separate QGIS Python plugin: Partially possible, see [proof-of-concept](https://github.com/qgist/pluginmanager). The primary concern here is the fact a separate, external plugin manager would have to inject code into QGIS at run time which makes it hard to maintain and risky to operate. It also can not solve the described problems concerning plugin dependencies and the plugin loading sequence because it would be a plugin itself at the mercy of the current implementation. It would lead to a massive increase in complexity.
 
